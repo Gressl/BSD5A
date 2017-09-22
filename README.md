@@ -1,2 +1,2 @@
-# BSD5A
+# Lagerverwaltung Supermarkt
 Maurer, Moessler, Gressl, Pointner
