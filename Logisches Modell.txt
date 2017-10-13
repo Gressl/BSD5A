@@ -1,0 +1,21 @@
+Kunde(ID, Name, Adresse) 
+  pk (ID)
+  
+Mandatar(ID, Firmenname, Adresse)
+  pK (ID)
+  
+Rechnung(SaleID)
+  pK(SaleID)
+
+LagerItem(ID, Name, Preis, Menge)
+  pk(ID)
+
+LagerEntnahme(ItemID, SaleID)
+  pk  (ItemID, SaleID)
+  fK (ItemID) references LagerItem(ID)
+  fK1(SaleID) references Verkauf(ID)
+  
+Verkauf(ID, Verkaufsdatum, Gesamtpreis, KundeID, MandatarID)
+  pK(ID)
+  fK(KundeID) references Kunde(ID)
+  fK(MandatarID) references Mandatar(ID)
