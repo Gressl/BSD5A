@@ -1,21 +1,22 @@
-Kunde(ID, Name, Adresse) 
-  pk (ID)
+Kunde(K_ID, Name, Adresse, UID) 
+  pk (K_ID)
   
-Mandatar(ID, Firmenname, Adresse)
-  pK (ID)
-  
-Rechnung(SaleID)
-  pK(SaleID)
+Mandatar(M_ID, Firmenname, Adresse)
+  pK (M_ID)
+ 
+Rechnung(RechnungsNummer, Schonbezahlt)
+  pK(RechnungsNummer)
 
-LagerItem(ID, Name, Preis, Menge)
+LagerItem(L_ID, Name, Preis, Menge, M_ID)
   pk(ID)
-
-LagerEntnahme(ItemID, SaleID)
+  fK(M_ID) references Mandatar(M_ID)
+ 
+LagerEntnahme(ItemID, SaleID, ItemMenge, Aktueller Preis)
   pk  (ItemID, SaleID)
-  fK (ItemID) references LagerItem(ID)
-  fK1(SaleID) references Verkauf(ID)
+  fK (ItemID) references LagerItem(L_ID)
+  fK1(SaleID) references Verkauf(V_ID)
   
-Verkauf(ID, Verkaufsdatum, Gesamtpreis, KundeID, MandatarID)
-  pK(ID)
-  fK(KundeID) references Kunde(ID)
-  fK(MandatarID) references Mandatar(ID)
+Verkauf(V_ID, Verkaufsdatum, KundeID, MandatarID)
+  pK(V_ID)
+  fK(KundeID) references Kunde(K_ID)
+  fK(MandatarID) references Mandatar(M_ID)
