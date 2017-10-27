@@ -22,22 +22,26 @@ con.connect(function(err) {
 			res.write(key + "                        ");
 			}
 			res.write("\n");
+			
 			for (var key in result[0]) {
 			res.write("-----------------------");
-			}	
-			res.write("\n\n\n\n\n");
-			
-			console.log(result[1]);
-			for (var key in result) {
-			res.write(result[key].K_ID + "----");
-			}				
+			}
 			
 			res.write("\n");
 			
-			for(var i = 0; i < result.length; i++){
-				res.write(JSON.stringify(result[i]));
-			}
+			for (var key in result) {
+				res.write("\n");
+				for (var valkey in result[key]) {
+					
+				  res.write(result[key][valkey] + "                        ");
+				  
+				}
+					res.write("\n");
 			
+			}				
+				//res.write(JSON.stringify(result));
+			
+
 			res.end();
 		});
 	}).listen(1234); 
