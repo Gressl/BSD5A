@@ -33,7 +33,7 @@ con.connect(function(err) {
 				res.write("\n");
 				for (var valkey in result[key]) {
 					
-				  res.write(result[key][valkey] + "                        ");
+				  res.write(result[key][valkey] + "                      ");
 				  
 				}
 					res.write("\n");
