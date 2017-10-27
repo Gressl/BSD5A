@@ -1,7 +1,7 @@
 Kunde(K_ID, Name, Adresse, UID) 
   pk (K_ID)
   
-Mandatar(M_ID, Firmenname, Adresse)
+Mandatar(M_ID, Firmenname, Adresse, Username, Passwort)
   pK (M_ID)
  
 Rechnung(RechnungsNummer, Schonbezahlt)
