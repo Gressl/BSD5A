@@ -6,7 +6,7 @@ var con = mysql.createConnection({
   host: "localhost",
   user: "root",
   password: "gressl123",
-  database: "Supermarkt_Verwaltung"
+  database: "Supermarkt_Verwaltung_New"
 });
 
 
@@ -19,55 +19,22 @@ con.connect(function (error) {
             console.log("Everything splitted: " + parameters);
             if (parameters != undefined) {
 
+                console.log("lenght: " + parameters.length);
+
+
                 var query = helperlib.BuildQuery(parameters);
 
                 console.log("Querystring: " + query);
                 con.query(query, function (err, result, fields) {
                     if (err || error) {
                         res.writeHead(400, { 'Content-Type': 'text/plain' });
-                        res.write(err + "\n\n\n" + error);
+                        res.write(" "+ err);
                         res.end();
                     }
                     else {
+                        
                         res.writeHead(200, { 'Content-Type': 'text/plain' });
-
-                        var cols = 0;
-                        var currentcol = 1;
-                        for (var valkey in result[0]) {
-                            cols++;
-                        }
-
-                        for (var key in result[0]) {
-                            if (currentcol != cols) {
-                                res.write(key + ";");
-                            }
-                            else {
-                                res.write(key + "");
-                            }
-                            currentcol++;
-                        }
-
-
-                        for (var key in result) {
-                            res.write("\n");
-                            currentcol = 1;
-                            for (var valkey in result[key]) {
-                                
-                                if (currentcol != cols) {
-                                    res.write(result[key][valkey] + ";");
-                                }
-                                else {
-                                    res.write(result[key][valkey] + "");
-                                }
-
-
-                              
-                                currentcol++;
-                            }
-                            
-                        }
-
-
+                        res.write(helperlib.getResponseString(split[0], result));
                         res.end();
                     }
                 });
