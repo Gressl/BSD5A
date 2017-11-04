@@ -47,7 +47,7 @@ module.exports = (function () {
                     if (parameters.length <= 3) {
                         querystring = "Select * from " + capitalizeFirstLetter(parameters[2].toLowerCase());
                     } else if(parameters.length == 5) {
-                        querystring = "Select * from " + capitalizeFirstLetter(parameters[2].toLowerCase()) + " WHERE " + parameters[3] + "=" + parameters[4];
+                        querystring = "Select * from " + capitalizeFirstLetter(parameters[2].toLowerCase()) + " WHERE " +  parameters[3] + " = \'" + parameters[4] + "\'";
                     } 
                     break;
 
