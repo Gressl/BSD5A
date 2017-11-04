@@ -6,48 +6,49 @@ drop table Kunde cascade constraints;
 drop table Rechnung cascade constraints;
 
 create table Kunde (
-K_ID varchar2(10) primary key,
-Name varchar2(20),
-Adresse varchar2(20),
-UID varchar2(20)
+K_ID varchar(10) primary key,
+Name varchar(20),
+Adresse varchar(20),
+UID varchar(20)
 );
 
 create table Lageritem (
-I_ID varchar2(10) primary key,
-Name varchar2(20),
-Preis number,
-Menge number
+I_ID varchar(10) primary key,
+Name varchar(20),
+Preis INT(15),
+Menge INT(15)
 );
-
 create table Mandatar (
-M_ID varchar2(10) primary key,
-Firmenname varchar2(20),
-Adresse varchar2(20),
-Username varchar2(20),
-Passwort varchar2(20)
+M_ID varchar(10) primary key,
+Firmenname varchar(20),
+Adresse varchar(20),
+Username varchar(20),
+Passwort varchar(20)
 );
 
 create table Verkauf (
-S_ID varchar2(10) primary key,
+S_ID varchar(10) primary key,
 Verkaufsdatum date,
-KundenID varchar2(10),
-MandatarID varchar2(10),
+KundenID varchar(10),
+MandatarID varchar(10),
 foreign key (KundenID) references Kunde (K_ID),
 foreign key (MandatarID) references Mandatar (M_ID)
 );
 
 create table Lagerentnahme (
-I_ID varchar2(10) primary key,
-S_ID varchar2(10) primary key,
-ItemMenge number,
-AktuellerPreis number,
+I_ID varchar(10),
+S_ID varchar(10),
+ItemMenge INT(15),
+AktuellerPreis INT(15),
+PRIMARY KEY (I_ID, S_ID),
 foreign key (I_ID) references Lageritem (I_ID),
 foreign key (S_ID) references Verkauf (S_ID)
 );
 
 create table Rechnung (
-Rechnungsnummer varchar2(10) primary key,
+Rechnungsnummer varchar(10),
 schonbezahlt boolean,
-S_ID varchar2(20),
+S_ID varchar(20),
+PRIMARY KEY(Rechnungsnummer),
 foreign key (S_ID) references Verkauf (S_ID)
 );
