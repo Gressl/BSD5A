@@ -1,14 +1,12 @@
 module.exports = (function () {
-    function getSingleParameters(requesturl) {
+    function getRequestType(requesturl) {
         try {
             var all = requesturl.split("?");
-
-
             if (all != undefined) {
 
-                var split_1 = all[1].split("&");
-
-                return split_1;
+                var split = all[0].slice(1, all[0].length);
+                
+                return split;
             }
             else {
                 return undefined;
@@ -21,10 +19,16 @@ module.exports = (function () {
 
     function getAllParameters(input) {
         var all = [];
+        var splitafter = input.split("?");
+        splitafter.splice(0, 1);
 
-        if (input != undefined) {
-            for (var i = 0; i < input.length; i++) {
-                var split = input[i].split("=");
+
+        var splitsec = splitafter[0].split("&");
+
+
+        if (splitsec != undefined) {
+            for (var i = 0; i < splitsec.length; i++) {
+                var split = splitsec[i].split("=");
                 for (var j = 0; j < split.length; j++) {
                     all.push(split[j]);
                 }
@@ -37,28 +41,29 @@ module.exports = (function () {
         }
     }
 
-    function BuildQuery(parameters) {
+    function BuildQuery(requesttype, parameters) {
         var querystring = "";
         if (parameters != undefined) {
             console.log("Parameter in db helper: " + parameters);
-            switch (parameters[0].toLowerCase()) {
+
+            switch (requesttype.toLowerCase()) {
 
                 case "get":
-                    if (parameters.length <= 3) {
-                        querystring = "Select * from " + capitalizeFirstLetter(parameters[2].toLowerCase());
-                    } else if(parameters.length == 5) {
-                        querystring = "Select * from " + capitalizeFirstLetter(parameters[2].toLowerCase()) + " WHERE " +  parameters[3] + " = \'" + parameters[4] + "\'";
+                    if (parameters.length <= 2) {
+                        querystring = "Select * from " + capitalizeFirstLetter(parameters[1].toLowerCase());
+                    } else if(parameters.length == 4) {
+                        querystring = "Select * from " + capitalizeFirstLetter(parameters[1].toLowerCase()) + " WHERE " +  parameters[2] + " = \'" + parameters[3] + "\'";
                     } 
                     break;
 
                 case "update":
                    
-                    if (parameters.length == 7) {
-                        var tablename = parameters[2];
-                        var col_to_set = parameters[3];
-                        var value_to_set = parameters[4];
-                        var col_to_bind = parameters[5];
-                        var col_bind_value = parameters[6];
+                    if (parameters.length == 6) {
+                        var tablename = parameters[1];
+                        var col_to_set = parameters[2];
+                        var value_to_set = parameters[3];
+                        var col_to_bind = parameters[4];
+                        var col_bind_value = parameters[5];
 
                         querystring = "UPDATE " + capitalizeFirstLetter(tablename.toLowerCase()) + " SET " + col_to_set + " = \'" + value_to_set + "\' Where " + col_to_bind + " = " + col_bind_value;
                        
@@ -94,6 +99,7 @@ module.exports = (function () {
 
     function getResponseString(cmd, sqlresult) {
         var retstring = "";
+
         switch (cmd.toLowerCase()) {
 
             case "get":
@@ -160,7 +166,7 @@ module.exports = (function () {
 
     //public
     return {
-        getSingleParameters: getSingleParameters,
+        getRequestType: getRequestType,
         capitalizeFirstLetter: capitalizeFirstLetter,
         getAllParameters: getAllParameters,
         BuildQuery: BuildQuery,
