@@ -1,5 +1,16 @@
 var SHA256 = require("crypto-js/sha256");
+
+res = null;
+contenttype = { 'Content-Type': 'text/plain' };
+
 module.exports = (function () {
+
+    function fireResponse(httpcode, message) {
+        res.writeHead(httpcode, contenttype);
+        res.write(message);
+        res.end();
+    }
+
     function getRequestType(requesturl) {
         try {
             var all = requesturl.split("?");
@@ -56,7 +67,7 @@ module.exports = (function () {
                         querystring = "Select * from " + capitalizeFirstLetter(parameters[1].toLowerCase()) + " WHERE " +  parameters[2] + " = \'" + parameters[3] + "\'";
                     } 
                     break;
-
+                    /* 
                 case "update":
                    
                     if (parameters.length == 6) {
@@ -73,7 +84,7 @@ module.exports = (function () {
                         return "parameter length is wrong";
                     }
                     break;
-
+                    */
                 default:
                  
             }
@@ -134,19 +145,7 @@ module.exports = (function () {
 
                 break;
 
-            case "update":
-                console.log("----" + JSON.stringify(sqlresult));
-                return JSON.stringify(sqlresult);
-                break;
-
-            case "remove":
-
-                break;
-
-            case "add":
-
-                break;
-
+         
             default:
                 return "Error";
                 break;
@@ -154,33 +153,33 @@ module.exports = (function () {
         }
     }
    
-   function Login(res ,con, credentials){
-	   ret = false;
-	   console.log(credentials);
-	   var query = "select count(*) from Mandatar where M_ID = " + credentials[0] + " AND Passwort = " + SHA256(credentials[1]);
+    function responseToLogin(con, cred) {
+
+        var credentials = cred.split(":");
+
+	   var query = "select count(*) from Mandatar where M_ID = \'" + credentials[0] + "\' AND Passwort = \'" + credentials[1] + "\'";
 	   
 	    con.query(query, function (err, result, fields) {
 				
                         if (err) {
-							console.log("result: " + JSON.stringify(err));
-                            res.writeHead(200, { 'Content-Type': 'text/plain' });
-                            res.write("false");
-                            res.end();
+                            fireResponse(500, "false");
                         }
                         else {
 							
-							console.log("result :" + JSON.stringify(result));
-							res.writeHead(200, { 'Content-Type': 'text/plain' });
-                            res.write("xxx");
-                            res.end();
+                            if (result[0]["count(*)"] == "1") {
+                                fireResponse(200, "true");
+                            }
+                            else {
+                                fireResponse(401, "false");
+                            }
 							
                         }
-                    });
-					
-					return ret;		
+                    });	
    }
 
-
+    function initResponse(resp) {
+        res = resp;
+    }
 
     //public
     return {
@@ -189,6 +188,7 @@ module.exports = (function () {
         getAllParameters: getAllParameters,
         BuildQuery: BuildQuery,
         getResponseString: getResponseString,
-		Login: Login
+        responseToLogin: responseToLogin,
+        initResponse: initResponse
     };
 })();

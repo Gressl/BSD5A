@@ -9,11 +9,12 @@ var con = mysql.createConnection({
   database: "Supermarkt_Verwaltung_New"
 });
 
+helperlib.initResponse(res);
 
 con.connect(function (error) {
 
     http.createServer(function (req, res) {
-
+          helperlib.initResponse(res);
 	     console.log(req.headers.authorization);
 		 
         if (req.url != "/favicon.ico" && req.url != "") {
@@ -62,13 +63,16 @@ con.connect(function (error) {
 				else if(req.method == "POST"){
 					if(req.url != "" && req.url.toLowerCase() == "/login")
 					{
+					    console.log(req.headers.authorization);
 						var buffer = new Buffer(req.headers.authorization.split(" ")[1], 'base64')
                         var credentials = buffer.toString();
 						
-						helperlib.Login(res, con, credentials);   
+                        helperlib.responseToLogin(con, credentials);
 					}
 					else{
-						//error
+					    res.writeHead(400, { 'Content-Type': 'text/plain' });
+					    res.write("false");
+					    res.end();
 					}
 				}
 				
@@ -82,6 +86,10 @@ con.connect(function (error) {
             }
             catch (ex) {
                 console.log(ex);
+                res.writeHead(200, { 'Content-Type': 'text/plain' });
+                res.write("Oh God! An Exception was caught: " + ex);
+                res.end();
+
             }
         }
         else {
