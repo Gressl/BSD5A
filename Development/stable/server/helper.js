@@ -1,8 +1,16 @@
 var SHA256 = require("crypto-js/sha256");
 
 res = null;
+contenttype = { 'Content-Type': 'text/plain' };
 
 module.exports = (function () {
+
+    function fireResponse(httpcode, message) {
+        res.writeHead(httpcode, contenttype);
+        res.write(message);
+        res.end();
+    }
+
     function getRequestType(requesturl) {
         try {
             var all = requesturl.split("?");
@@ -137,19 +145,7 @@ module.exports = (function () {
 
                 break;
 
-            case "update":
-                console.log("----" + JSON.stringify(sqlresult));
-                return JSON.stringify(sqlresult);
-                break;
-
-            case "remove":
-
-                break;
-
-            case "add":
-
-                break;
-
+         
             default:
                 return "Error";
                 break;
@@ -166,21 +162,15 @@ module.exports = (function () {
 	    con.query(query, function (err, result, fields) {
 				
                         if (err) {
-                            res.writeHead(500, { 'Content-Type': 'text/plain' });
-                            res.write("false");
-                            res.end();
+                            fireResponse(500, "false");
                         }
                         else {
 							
                             if (result[0]["count(*)"] == "1") {
-                                res.writeHead(200, { 'Content-Type': 'text/plain' });
-                                res.write("true");
-                                res.end();
+                                fireResponse(200, "true");
                             }
                             else {
-                                res.writeHead(401, { 'Content-Type': 'text/plain' });
-                                res.write("false");
-                                res.end();
+                                fireResponse(401, "false");
                             }
 							
                         }
