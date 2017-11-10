@@ -4,25 +4,25 @@ var qs = require('querystring');
 
 http.createServer(function (request, response) {
     
-    console.log(request);
+    console.log(request.method);
     if (request.method == "POST") {
-           var body = [];
-           request.on('data', function (chunk) {
-         body.push(chunk);
-            }).on('end', function () {
-         body = Buffer.concat(body).toString();
-        // at this point, `body` has the entire request body stored in it as a string
-            console.log(body);
+         var body = '';
+
+        request.on('data', function (data) {
+            body += data;
+
+            // Too much POST data, kill the connection!
+            // 1e6 === 1 * Math.pow(10, 6) === 1 * 1000000 ~~~ 1MB
+            if (body.length > 1e6)
+                request.connection.destroy();
 			
-			response.writeHead(200, { 'Content-Type': 'text/plain' });
-	     response.write("" + JSON.stringify(body));
+			 var post = qs.parse(body);
+			 
+			 response.writeHead(200, { 'Content-Type': 'text/plain' });
+	     response.write(post["table"] + "-----" + JSON.stringify(post) + "just body" + post);
          response.end("");
 			
-			});
+        });
+		}
 
-	     
-    }
-    
-   
-	
 }).listen(port);
