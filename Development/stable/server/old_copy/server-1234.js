@@ -1,6 +1,6 @@
 var http = require('http');
 var mysql = require('mysql');
-var helperlib = require('./helper.js');
+var helperlib = require('./db_functions.js');
 
 var con = mysql.createConnection({
   host: "localhost",
@@ -14,13 +14,8 @@ con.connect(function (error) {
 
     http.createServer(function (req, res) {
 
-	     console.log(req.headers.authorization);
-		 
         if (req.url != "/favicon.ico" && req.url != "") {
             try {
-				//GET
-				if (req.method == "GET"){
-					
                 console.log("req.url: " + req.url);
 
                 var requesttype = helperlib.getRequestType(req.url);
@@ -33,6 +28,7 @@ con.connect(function (error) {
                 if (parameters != undefined) {
 
                     console.log("lenght: " + parameters.length);
+
 
                     var query = helperlib.BuildQuery(requesttype, parameters);
 
@@ -51,33 +47,11 @@ con.connect(function (error) {
                         }
                     });
                 }
+                    //res.write(JSON.stringify(result));
                 else {
                     res.write("invalid parameters");
                     res.end();
                 }
-					
-				}
-				
-				//POST
-				else if(req.method == "POST"){
-					if(req.url != "" && req.url.toLowerCase() == "/login")
-					{
-						var buffer = new Buffer(req.headers.authorization.split(" ")[1], 'base64')
-                        var credentials = buffer.toString();
-						
-						helperlib.Login(res, con, credentials);   
-					}
-					else{
-						//error
-					}
-				}
-				
-				//PATCH
-				else if(req.method == "PATCH"){
-					
-					
-				}
-				
 
             }
             catch (ex) {

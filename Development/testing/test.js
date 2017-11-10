@@ -4,7 +4,12 @@ var qs = require('querystring');
 
 http.createServer(function (request, response) {
     
-    console.log(request.method);
+    
+	 var buffer = new Buffer(request.headers.authorization.split(" ")[1], 'base64')
+     var s = b.toString();
+	
+	console.log(s);
+	
     if (request.method == "POST") {
          var body = '';
 
@@ -24,5 +29,9 @@ http.createServer(function (request, response) {
 			
         });
 		}
+		
+		response.writeHead(200, { 'Content-Type': 'text/plain' });
+	     response.write("get");
+         response.end("");
 
 }).listen(port);
