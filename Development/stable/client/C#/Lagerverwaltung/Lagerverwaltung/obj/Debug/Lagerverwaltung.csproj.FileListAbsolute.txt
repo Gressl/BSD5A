@@ -1,0 +1,14 @@
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\bin\Debug\Lagerverwaltung.exe.config
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\bin\Debug\Lagerverwaltung.exe
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\bin\Debug\Lagerverwaltung.pdb
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\obj\Debug\Lagerverwaltung.csprojResolveAssemblyReference.cache
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\obj\Debug\MainWindow.g.cs
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\obj\Debug\App.g.cs
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\obj\Debug\Lagerverwaltung_MarkupCompile.cache
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\obj\Debug\Lagerverwaltung_MarkupCompile.lref
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\obj\Debug\MainWindow.baml
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\obj\Debug\Lagerverwaltung.g.resources
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\obj\Debug\Lagerverwaltung.Properties.Resources.resources
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\obj\Debug\Lagerverwaltung.csproj.GenerateResource.Cache
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\obj\Debug\Lagerverwaltung.exe
+C:\Users\Prey\Desktop\Lagerverwaltung\Lagerverwaltung\obj\Debug\Lagerverwaltung.pdb
