@@ -3,6 +3,8 @@ var mysql = require('mysql');
 var helperlib = require('./helper.js');
 var express = require('express');
 
+var creds = {};
+
 var app = express();
 var con = mysql.createConnection({
   host: "localhost",
@@ -10,6 +12,7 @@ var con = mysql.createConnection({
   password: "gressl123",
   database: "Supermarkt_Verwaltung_New"
 });
+
 
 //helperlib.initResponse(res);
 con.connect();
@@ -54,7 +57,7 @@ app.use(function(req,res, next){
 
 			var buffer = new Buffer(auth_token, 'base64')
 			var credentials = buffer.toString().split(":");
-
+			creds = credentials;
          var query = "select count(*) from Mandatar where M_ID = \'" + credentials[0] + "\' AND Passwort = \'" + credentials[1] + "\'";
          con.query(query, function (err, result, fields) {
 
@@ -83,17 +86,89 @@ app.get('/', function (req, res) {
 });
 
 app.get('/get', function (req, res) {
-    fireResponse(res, 200, "/get " + req.query.table);
+	
+	if(!req.query.table){
+		fireResponse(res, 400, "/get " + req.query.table);
+	} 
+	else{
+		
+		switch (req.query.table.toLowerCase()) {
+			
+            case "kunde":
+				 var query = "select kund.K_ID, kund.Name, kund.Adresse, kund.UID from Mandatar m  join Verkauf k on k.MandatarID = m.M_ID join Kunde kund on kund.K_ID = k.KundenID  where M_ID = \'"+ creds[0] +"\' AND Passwort = \'" + creds[1] + "\'";
+				 console.log(query);
+	             con.query(query, function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error");
+                        }
+                        else {
+							var ret = createResponseGET(result);
+							fireResponse(res,200, ret);
+                        }
+                    });	
+                break;
+
+         
+            default:
+					fireResponse(res, 400, "error");
+                break;
+
+        }
+		
+		
+		
+		
+		
+		
+	}
+	
+    
 });
 
-function checkCredentials(credentials) {
-   
+function createResponseGET(sqlresult){
+	            var cols = 0;
+                var currentcol = 1;
+				var retstring = "";
+				
+                for (var valkey in sqlresult[0]) {
+                    cols++;
+                }
+
+                for (var key in sqlresult[0]) {
+                    if (currentcol != cols) {
+                        retstring += (key + ";");
+                    }
+                    else {
+                        retstring += (key + "");
+                    }
+                    currentcol++;
+                }
+
+
+                for (var key in sqlresult) {
+                    retstring += ("\n");
+                    currentcol = 1;
+                    for (var valkey in sqlresult[key]) {
+
+                        if (currentcol != cols) {
+                            retstring += (sqlresult[key][valkey] + ";");
+                        }
+                        else {
+                            retstring += (sqlresult[key][valkey] + "");
+                        }
+                        currentcol++;
+                    }
+
+                }
+				
+				return retstring;
+				
 }
 
 function fireResponse(res,httpcode, message) {
-    res.writeHead(httpcode, contenttype);
-    res.write(message);
-    res.end();
+    res.status(httpcode);
+    res.send(message);
 }
 
 app.listen(1234);
