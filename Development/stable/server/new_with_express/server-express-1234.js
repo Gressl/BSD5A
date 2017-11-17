@@ -81,9 +81,6 @@ app.use(function(req,res, next){
 	
 });
 
-app.get('/', function (req, res) {
-    fireResponse(res,200, "Server is running!")
-});
 
 app.get('/get', function (req, res) {
 	
@@ -108,23 +105,36 @@ app.get('/get', function (req, res) {
                         }
                     });	
                 break;
-
+			
+			case "verkauf":
+				var query = "select k.S_ID, DATE_FORMAT(k.Verkaufsdatum,'%d/%m/%Y') as Datum, k.KundenID, kund.Name as KundenName, l.I_ID, l.ItemMenge, l.AktuellerPreis, l.ItemMenge*l.AktuellerPreis AS KumulierterPreis from Mandatar m  join Verkauf k on k.MandatarID = m.M_ID join Kunde kund on kund.K_ID = k.KundenID join Lagerentnahme l on k.S_ID = l.S_ID  where M_ID = \'"+ creds[0] +"\' AND Passwort = \'" + creds[1] + "\'";
+			
+				 console.log(query);
+	             con.query(query, function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error");
+                        }
+                        else {
+							var ret = createResponseGET(result);
+							fireResponse(res,200, ret);
+                        }
+                    });	
+			break;
          
             default:
 					fireResponse(res, 400, "error");
                 break;
 
-        }
-		
-		
-		
-		
-		
-		
+        }	
 	}
 	
-    
 });
+
+app.get('/', function (req, res) {
+    fireResponse(res,200, "Server is running!")
+});
+
 
 function createResponseGET(sqlresult){
 	            var cols = 0;
