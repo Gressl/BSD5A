@@ -20,6 +20,7 @@ namespace Lagerverwaltung
     public partial class Kundenverwaltung : Window
     {
         MyWebRequest request = new MyWebRequest();
+        List<Kunde> myKunden = new List<Kunde>();
         string username;
         string hashedpasswort;
         string resstring;
@@ -37,8 +38,10 @@ namespace Lagerverwaltung
 
                 for (int i = 1; i < splitted.Length; i++)
                 {
-                    string onecustomer = splitted[i].Replace(";", " ");
-                    lbl_Kunde.Items.Add(onecustomer);
+                    string[] onecustomer = splitted[i].Split(';');
+                    Kunde k = new Kunde(Convert.ToInt32(onecustomer[0]), onecustomer[1], onecustomer[2], onecustomer[3]);
+                    myKunden.Add(k);
+                    lbl_Kunde.Items.Add(k);
                 }
             }
             catch (Exception)
@@ -52,11 +55,11 @@ namespace Lagerverwaltung
         {
             try
             {
-                string[] splitinfo = lbl_Kunde.SelectedItem.ToString().Split(' ');
-                txt_ID.Text = splitinfo[0];
-                txt_Name.Text = splitinfo[1];
-                txt_Adresse.Text = splitinfo[2];
-                txt_UID.Text = splitinfo[3];
+                Kunde k = (Kunde)lbl_Kunde.SelectedItem;
+                txt_ID.Text = Convert.ToString(k.id);
+                txt_Name.Text = k.Name;
+                txt_Adresse.Text = k.Adresse;
+                txt_UID.Text = k.UID;
             }
             catch (Exception ex)
             {
