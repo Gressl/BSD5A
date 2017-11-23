@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows;
@@ -20,14 +21,52 @@ namespace Lagerverwaltung
     /// </summary>
     public partial class MainWindow : Window
     {
+        Verwaltung v;
+        string username;
+        string password;
+        MyWebRequest req = new MyWebRequest();
         public MainWindow()
         {
             InitializeComponent();
 
-            //create the constructor with post type and few data
-            MyWebRequest myRequest = new MyWebRequest("http://villach.city:1234/get?table=Kunde", "POST", "a=value1&b=value2&c=value3&d=value4");
-            //show the response string on the console screen.
-            lbl.Content=(myRequest.GetResponse());
+        }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+            username = txt_Mandatar.Text;
+            password = CalculateSHA256Hash(txt_Passwort.Text);
+
+            // MessageBox.Show(username + " " + password);
+            string s = req.getCall("http://villach.city:1234/login", username, password);
+
+            if (s == "true")
+            {
+                v = new Verwaltung(username, password);
+                v.Show();
+                this.Close();
+               
+            }
+            else {
+                MessageBox.Show("Username or Passwort nicht korrekt");
+            }
+            
+        }
+
+        private static string CalculateSHA256Hash(string text)
+        {
+    
+            byte[] hashValue;
+            byte[] message = Encoding.UTF8.GetBytes(text);
+
+            SHA256Managed hashString = new SHA256Managed();
+            string hex = "";
+
+            hashValue = hashString.ComputeHash(message);
+            foreach (byte x in hashValue)
+            {
+                hex += String.Format("{0:x2}", x);
+            }
+            return hex;
         }
     }
 }

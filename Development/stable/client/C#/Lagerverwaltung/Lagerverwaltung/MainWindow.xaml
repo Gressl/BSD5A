@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lagerverwaltung"
         mc:Ignorable="d"
-        Title="MainWindow" Height="350" Width="525">
+        Title="Login" Height="169.983" Width="286.965" Background="#FFE4E4E4">
     <Grid>
-        <Label x:Name="lbl" Content="Label" HorizontalAlignment="Left" Margin="114,96,0,0" VerticalAlignment="Top" Height="102" Width="280"/>
+        <Label x:Name="label" Content="Mandatar:" HorizontalAlignment="Left" Margin="10,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="Passwort:" HorizontalAlignment="Left" Margin="10,52,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txt_Mandatar" HorizontalAlignment="Left" Height="23" Margin="114,10,0,0" TextWrapping="Wrap" Text="AT01" VerticalAlignment="Top" Width="149"/>
+        <TextBox x:Name="txt_Passwort" HorizontalAlignment="Left" Height="23" Margin="114,52,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="149"/>
+        <Button x:Name="button" Content="Login" HorizontalAlignment="Left" Margin="188,105,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
     </Grid>
 </Window>
