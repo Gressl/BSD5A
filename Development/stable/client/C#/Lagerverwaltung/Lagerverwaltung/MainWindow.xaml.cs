@@ -34,10 +34,10 @@ namespace Lagerverwaltung
         private void button_Click(object sender, RoutedEventArgs e)
         {
             username = txt_Mandatar.Text;
-            password = CalculateSHA256Hash(txt_Passwort.Text);
+            password = CalculateSHA256Hash(txt_pass.Password);
 
             // MessageBox.Show(username + " " + password);
-            string s = req.getCall("http://villach.city:1234/login", username, password);
+            string s = req.getLoginCall("http://villach.city:1234/login", username, password);
 
             if (s == "true")
             {

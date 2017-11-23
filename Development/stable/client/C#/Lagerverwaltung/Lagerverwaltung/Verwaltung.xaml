@@ -5,11 +5,13 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Lagerverwaltung"
         mc:Ignorable="d"
-        Title="Verwaltung" Height="294.361" Width="332.707">
+        Title="Verwaltung" Height="294.361" Width="332.707" Background="#FFE1DFFF">
     <Grid>
-        <DataGrid x:Name="dataGrid" HorizontalAlignment="Left" Margin="26,25,0,0" VerticalAlignment="Top" Height="165" Width="268"/>
-        <Button x:Name="button" Content="Button" HorizontalAlignment="Left" Margin="26,211,0,0" VerticalAlignment="Top" Width="75" Click="button_Click"/>
-        <Button x:Name="button1" Content="Button" HorizontalAlignment="Left" Margin="219,211,0,0" VerticalAlignment="Top" Width="75"/>
-
+        <Label x:Name="label" Content="Logged in as: " HorizontalAlignment="Left" Margin="28,24,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="lbl_user" Content="xx" HorizontalAlignment="Left" Margin="194,18,0,0" VerticalAlignment="Top" FontSize="18"/>
+        <GroupBox x:Name="groupBox" Header="Status" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="64" Width="293"/>
+        <Button x:Name="button" Content="Kundenverwaltung" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Width="124" Height="28" Click="button_Click_1"/>
+        <Button x:Name="button1" Content="Lagerverwaltung" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="124" Height="28"/>
+        <Button x:Name="button2" Content="Rechnungsverwaltung" HorizontalAlignment="Left" Margin="10,146,0,0" VerticalAlignment="Top" Width="124" Height="28"/>
     </Grid>
 </Window>

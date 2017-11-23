@@ -1,0 +1,20 @@
+﻿<Window x:Class="Lagerverwaltung.Kundenverwaltung"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lagerverwaltung"
+        mc:Ignorable="d"
+        Title="Kundenverwaltung" Height="388.489" Width="621.158" Background="#FFEEEEEE">
+    <Grid>
+        <ListBox x:Name="lbl_Kunde" HorizontalAlignment="Left" Height="337" Margin="10,10,0,0" VerticalAlignment="Top" Width="251" SelectionChanged="lbl_Kunde_SelectionChanged"/>
+        <Label x:Name="label" Content="ID" HorizontalAlignment="Left" Margin="266,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="Name" HorizontalAlignment="Left" Margin="266,36,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label2" Content="Adresse" HorizontalAlignment="Left" Margin="266,62,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label3" Content="UID" HorizontalAlignment="Left" Margin="266,88,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txt_ID" HorizontalAlignment="Left" Height="23" Margin="337,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txt_Name" HorizontalAlignment="Left" Height="23" Margin="337,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <TextBox x:Name="txt_Adresse" HorizontalAlignment="Left" Height="23" Margin="337,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.508,0.478"/>
+        <TextBox x:Name="txt_UID" HorizontalAlignment="Left" Height="23" Margin="337,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+    </Grid>
+</Window>

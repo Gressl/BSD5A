@@ -28,3 +28,5 @@ C:\Users\Prey\Desktop\BSD5A\Lagerverwaltung-Supermarkt\Development\stable\client
 C:\Users\Prey\Desktop\BSD5A\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\obj\Debug\Lagerverwaltung.csproj.GenerateResource.Cache
 C:\Users\Prey\Desktop\BSD5A\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\obj\Debug\Verwaltung.g.cs
 C:\Users\Prey\Desktop\BSD5A\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\obj\Debug\Verwaltung.baml
+C:\Users\Prey\Desktop\BSD5A\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\obj\Debug\Kundenverwaltung.g.cs
+C:\Users\Prey\Desktop\BSD5A\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\obj\Debug\Kundenverwaltung.baml

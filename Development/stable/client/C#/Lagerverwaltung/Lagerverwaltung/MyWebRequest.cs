@@ -13,7 +13,7 @@ namespace Lagerverwaltung
         private WebRequest request;
        
 
-        public String getCall(string url, string username, string password)
+        public String getLoginCall(string url, string username, string password)
         {
             string responseString = "false";
 
@@ -28,6 +28,26 @@ namespace Lagerverwaltung
             catch (WebException ex)
             {
                 return "false";
+            }
+
+            return responseString;
+        }
+
+        public String getCall(string url, string username, string password)
+        {
+            string responseString = "false";
+
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(url);
+                string svcCredentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(username + ":" + password));
+                request.Headers.Add("Authorization", "Basic " + svcCredentials);
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            }
+            catch (WebException ex)
+            {
+                return ex.Message;
             }
 
             return responseString;
