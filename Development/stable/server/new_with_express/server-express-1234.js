@@ -83,7 +83,8 @@ app.use(function(req,res, next){
 
 
 app.get('/get', function (req, res) {
-	
+	try{
+		
 	if(!req.query.table){
 		fireResponse(res, 400, "/get " + req.query.table);
 	} 
@@ -128,7 +129,9 @@ app.get('/get', function (req, res) {
 
         }	
 	}
-	
+	} catch (e) {
+        fireResponse(res, 500, "something went wrong");
+    }
 });
 
 app.get('/', function (req, res) {
