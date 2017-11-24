@@ -34,7 +34,7 @@ namespace Lagerverwaltung
 
             try
             {
-                string[] splitted = resstring.Split('\n');
+                string[] splitted = resstring.Split('-');
 
                 for (int i = 1; i < splitted.Length; i++)
                 {
