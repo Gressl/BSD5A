@@ -2,10 +2,15 @@ var http = require('http');
 var mysql = require('mysql');
 var helperlib = require('./helper.js');
 var express = require('express');
-
+var bodyParser = require('body-parser');
 var creds = {};
 
 var app = express();
+
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+
+
 var con = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -101,7 +106,7 @@ app.get('/get', function (req, res) {
                             fireResponse(res, 500, "error");
                         }
                         else {
-							var ret = createResponseGET(result);
+							var ret = createJSONGetTableResponse(result);
 							fireResponse(res,200, ret);
                         }
                     });	
@@ -117,11 +122,65 @@ app.get('/get', function (req, res) {
                             fireResponse(res, 500, "error");
                         }
                         else {
-							var ret = createResponseGET(result);
+							var ret = createJSONGetTableResponse(result);
 							fireResponse(res,200, ret);
                         }
                     });	
 			break;
+			
+			case "rechnung":
+			  var query = "Select r.S_ID, r.Rechnungsnummer, r.schonbezahlt from Mandatar m join Verkauf k on m.M_ID = k.MandatarID join Rechnung r on k.S_ID = r.S_ID where m.M_ID = \'"+ creds[0] +"\' AND m.Passwort = \'" + creds[1] + "\'";
+				
+				console.log(query);
+	             con.query(query, function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error");
+                        }
+                        else {
+							var ret = createJSONGetTableResponse(result);
+							fireResponse(res,200, ret);
+                        }
+                    });	
+			
+			break;
+			
+			case "lagerentnahme":
+			var query = "select  l.I_ID, l.S_ID, l.ItemMenge , l.AktuellerPreis from Mandatar m join Verkauf v on m.M_ID = v.MandatarID join Lagerentnahme l on l.S_ID = v.S_ID where m.M_ID = \'"+ creds[0] +"\' AND m.Passwort = \'" + creds[1] + "\'";
+			
+			console.log(query);
+	             con.query(query, function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error");
+                        }
+                        else { 
+							var ret = createJSONGetTableResponse(result);
+							fireResponse(res,200, ret);
+                        }
+                    });	
+			
+			
+			break;
+			
+			case "lageritem":
+			
+			  var query = "select li.I_ID, li.Name, li.Preis As Preis_per_Stk, li.Menge from Mandatar m join Verkauf v on m.M_ID = v.MandatarID join Lagerentnahme l on l.S_ID = v.S_ID join Lageritem li on li.I_ID = l.I_ID where m.M_ID = \'"+ creds[0] +"\' AND m.Passwort = \'" + creds[1] + "\'";
+			 
+			 console.log(query);
+	             con.query(query, function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error");
+                        }
+                        else { 
+							var ret = createJSONGetTableResponse(result);
+							fireResponse(res,200, ret);
+                        }
+                    });	
+			
+			 
+			 break;
          
             default:
 					fireResponse(res, 400, "error");
@@ -130,52 +189,87 @@ app.get('/get', function (req, res) {
         }	
 	}
 	} catch (e) {
-        fireResponse(res, 500, "something went wrong");
+        fireResponse(res, 500, "oops, something went wrong");
     }
 });
+
+
+app.put('/add', function (req, res) {
+try{
+	console.log(req.body);
+	
+	
+	if(!req.body.table){
+		fireResponse(res, 400, "no table specified!");
+	} 
+	else{
+		
+		
+		switch (req.body.table.toLowerCase()) {
+			case "kunde":
+			 
+			 if(req.body.Name && req.body.Adresse && req.body.UID){
+				  con.query("select MAX(K_ID) AS LastID from Kunde", function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error (DB)");
+                        }
+                        else { 
+							var newid = parseInt(result[0].LastID);
+							newid++;
+							console.log(newid);
+							
+							
+								con.query("insert into Kunde(K_ID, Name, Adresse, UID) values(\'"  + newid + "\', \'" + req.body.Name + "\', \'" + req.body.Adresse + "\', \'" + req.body.UID + "\')", function (err1, result1, fields) {
+				
+								if (err1) {
+									fireResponse(res, 500, "error (DB)");
+								}
+								else { 
+									
+									fireResponse(res,200, result1);
+								}
+								});	
+							
+							
+							
+                        }
+                    });	
+					
+			 } 
+			 
+			 else{
+				  fireResponse(res, 400, "some params are missing!");
+			 }
+			 
+			
+			 
+			break;
+			
+			
+			default:
+				fireResponse(res, 400, "error");
+			break;
+			
+			
+		}
+	
+	}
+	
+} catch (e) {
+    fireResponse(res, 500, "oops, something went wrong");
+}
+});
+
 
 app.get('/', function (req, res) {
     fireResponse(res,200, "Server is running!")
 });
 
 
-function createResponseGET(sqlresult){
-	            var cols = 0;
-                var currentcol = 1;
-				var retstring = "";
-				
-                for (var valkey in sqlresult[0]) {
-                    cols++;
-                }
-
-                for (var key in sqlresult[0]) {
-                    if (currentcol != cols) {
-                        retstring += (key + ";");
-                    }
-                    else {
-                        retstring += (key + "");
-                    }
-                    currentcol++;
-                }
-
-
-                for (var key in sqlresult) {
-                    retstring += ("\n");
-                    currentcol = 1;
-                    for (var valkey in sqlresult[key]) {
-
-                        if (currentcol != cols) {
-                            retstring += (sqlresult[key][valkey] + ";");
-                        }
-                        else {
-                            retstring += (sqlresult[key][valkey] + "");
-                        }
-                        currentcol++;
-                    }
-
-                }
-				
-				return retstring;
+function createJSONGetTableResponse(sqlresult){
+				//console.log(sqlresult[0]);
+				return sqlresult;
 				
 }
 
