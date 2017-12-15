@@ -19,7 +19,7 @@ var con = mysql.createConnection({
 });
 
 
-//helperlib.initResponse(res);
+
 con.connect();
 
 app.get('/login', function (req, res) {
@@ -87,6 +87,7 @@ app.use(function(req,res, next){
 });
 
 
+//READ----------------------------------
 app.get('/get', function (req, res) {
 	try{
 		
@@ -193,7 +194,7 @@ app.get('/get', function (req, res) {
     }
 });
 
-
+//CREATE
 app.put('/add', function (req, res) {
 try{
 	console.log(req.body);
@@ -207,6 +208,8 @@ try{
 		
 		switch (req.body.table.toLowerCase()) {
 			case "kunde":
+			 
+			 try{
 			 
 			 if(req.body.Name && req.body.Adresse && req.body.UID){
 				  con.query("select MAX(K_ID) AS LastID from Kunde", function (err, result, fields) {
@@ -229,21 +232,178 @@ try{
 									
 									fireResponse(res,200, result1);
 								}
-								});	
-							
-							
-							
+								});		
                         }
-                    });	
-					
+                    });		
 			 } 
-			 
 			 else{
 				  fireResponse(res, 400, "some params are missing!");
 			 }
 			 
-			
+			 }
+			 catch(e){
+				  fireResponse(res, 500, "something wengt wrong!");
+			 }
 			 
+			break;
+			
+			case "lagerentnahme":
+			//I_ID, S_ID, ItemMenge, AktuellerPreis
+			try{
+				
+				if(req.body.I_ID && req.body.S_ID && req.body.ItemMenge && req.body.AktuellerPreis){
+					 var query = "insert into Lagerentnahme(I_ID, S_ID, ItemMenge, AktuellerPreis) values(\'"  + req.body.I_ID + "\', \'" + req.body.S_ID + "\', \'" + req.body.ItemMenge + "\', \'" + req.body.AktuellerPreis + "\')";
+			 
+			 console.log(query);
+	             con.query(query, function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error");
+                        }
+                        else { 
+							var ret = createJSONGetTableResponse(result);
+							fireResponse(res,200, ret);
+                        }
+                    });	
+				}
+				else{
+					fireResponse(res, 500, "params are missing or wrong");
+				}
+			}
+			catch(e){
+				fireResponse(res, 500, "something went wrong!");
+			}
+			
+			break;
+			
+			case "lageritem":
+			// I_ID, Name, Preis, Menge
+			//select I_ID from Lageritem order by I_ID desc limit 1
+			try{
+				
+				if(req.body.Name && req.body.Preis && req.body.Menge){
+					
+					con.query("select I_ID from Lageritem order by I_ID desc limit 1", function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error");
+                        }
+                        else { 
+						
+							var oldstring = result[0].I_ID;
+							var oldid = oldstring.substring(2,4);
+							var newid = parseInt(oldid);
+							newid++;
+							
+							var newstring = "LI0" + newid;
+							
+							console.log(newid);
+							
+							console.log(result[0]);
+							var query = "insert into Lageritem(I_ID, Name, Preis, Menge) values(\'"  + newstring + "\', \'" + req.body.Name + "\', \'" + req.body.Preis + "\', \'" + req.body.Menge + "\')";
+							console.log(query);
+							con.query(query, function (err1, result, fields) {
+				
+							if (err) {
+								fireResponse(err1, 500, "error");
+							}
+							else { 
+								var ret = createJSONGetTableResponse(result);
+								fireResponse(res,200, ret);
+							}
+							});	
+                        }
+				});	
+				}
+				else{
+					fireResponse(res, 500, "params are missing or wrong");
+				}
+			}
+			catch(e){
+				fireResponse(res, 500, "something went wrong!");
+			}
+			
+			break;
+			
+			case "verkauf":
+			//S_ID, Verkaufsdatum, KundenID, MandatarID
+			try{
+				 if(req.body.Verkaufsdatum && req.body.KundenID && req.body.MandatarID){
+				  con.query("select S_ID from Verkauf order by S_ID desc limit 1", function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error (DB)");
+                        }
+                        else { 
+								var oldstring = result[0].S_ID;
+								var oldid = oldstring.substring(2,4);
+								var newid = parseInt(oldid);
+								newid++;
+							
+							   var newstring = "SA0" + newid;
+							
+							
+								con.query("insert into Verkauf(S_ID, Verkaufsdatum, KundenID, MandatarID) values(\'"  + newstring + "\', \'" + req.body.Verkaufsdatum + "\', \'" + req.body.KundenID + "\', \'" + req.body.MandatarID + "\')", function (err1, result1, fields) {
+				
+								if (err1) {
+									fireResponse(res, 500, "error (DB)");
+								}
+								else { 
+									fireResponse(res,200, result1);
+								}
+								});		
+                        }
+                    });		
+			 } 
+			 else{
+				  fireResponse(res, 400, "some params are missing!");
+			 }
+			}
+			catch(e){
+				fireResponse(res, 500, "something went wrong!");
+			}
+			
+			break;
+			
+			case "rechnung":
+			//Rechnungsnummer, schonbezahlt, S_ID
+			try{
+				 if(req.body.schonbezahlt && req.body.S_ID ){
+				  con.query("select Rechnungsnummer from Rechnung order by Rechnungsnummer desc limit 1", function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error (DB)");
+                        }
+                        else { 
+								var oldstring = result[0].Rechnungsnummer;
+								var oldid = oldstring.substring(2,4);
+								var newid = parseInt(oldid);
+								newid++;
+							
+							   var newstring = "AT0" + newid;
+							
+							
+								con.query("insert into Rechnung(Rechnungsnummer, schonbezahlt, S_ID) values(\'"  + newstring + "\', \'" + req.body.schonbezahlt + "\', \'" + req.body.S_ID + "\')", function (err1, result1, fields) {
+				
+								if (err1) {
+									fireResponse(res, 500, "error (DB)");
+									console.log(err1);
+								}
+								else { 
+									fireResponse(res,200, result1);
+								}
+								});		
+                        }
+                    });		
+			 } 
+			 else{
+				  fireResponse(res, 400, "some params are missing!");
+			 }
+			}
+			catch(e){
+				fireResponse(res, 500, "something went wrong!");
+			}
+			
 			break;
 			
 			
@@ -254,8 +414,7 @@ try{
 			
 		}
 	
-	}
-	
+	}	
 } catch (e) {
     fireResponse(res, 500, "oops, something went wrong");
 }
