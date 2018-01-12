@@ -66,5 +66,16 @@ namespace Lagerverwaltung
 
             }
         }
+
+        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        {
+            KundenAdd kaV = new KundenAdd();
+            kaV.Show();
+        }
+
+        private void btnUpdate_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
