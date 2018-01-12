@@ -56,12 +56,19 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Kunde.cs" />
+    <Compile Include="KundenAdd.xaml.cs">
+      <DependentUpon>KundenAdd.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Kundenverwaltung.xaml.cs">
       <DependentUpon>Kundenverwaltung.xaml</DependentUpon>
     </Compile>
     <Compile Include="Verwaltung.xaml.cs">
       <DependentUpon>Verwaltung.xaml</DependentUpon>
     </Compile>
+    <Page Include="KundenAdd.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Kundenverwaltung.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
