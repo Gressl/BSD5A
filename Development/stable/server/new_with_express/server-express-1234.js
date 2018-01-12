@@ -27,7 +27,7 @@ app.get('/login', function (req, res) {
 		 
 		  var auth_token = req.headers.authorization.split(" ")[1];
 			console.log(auth_token);
-
+			console.log(req.headers);
 			var buffer = new Buffer(auth_token, 'base64')
 			var credentials = buffer.toString().split(":");
 
@@ -420,6 +420,159 @@ try{
 }
 });
 
+//REMOVE 
+/*
+app.delete('/delete', function(req, res) {
+	try{
+	console.log(req.body);
+	
+	if(!req.body.table){
+		fireResponse(res, 400, "no table specified!");
+	} 
+	else{
+		
+		switch (req.body.table.toLowerCase()) {
+			case "kunde":
+			
+			 try{
+			 if(req.body.K_ID){
+				  con.query("", function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error (DB)");
+                        }
+                        else { 
+							
+                        }
+                    });		
+			 } 
+			 else{
+				  fireResponse(res, 400, "some params are missing!");
+			 }
+			 
+			 }
+			 catch(e){
+				  fireResponse(res, 500, "something wengt wrong!");
+			 }
+			 
+			break;
+			
+			case "lagerentnahme":
+			//I_ID, S_ID, ItemMenge, AktuellerPreis
+			try{
+				
+				if(req.body.I_ID && req.body.S_ID){
+					
+			 console.log(query);
+	             con.query("", function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error");
+                        }
+                        else { 
+							var ret = createJSONGetTableResponse(result);
+							fireResponse(res,200, ret);
+                        }
+                    });	
+				}
+				else{
+					fireResponse(res, 500, "params are missing or wrong");
+				}
+			}
+			catch(e){
+				fireResponse(res, 500, "something went wrong!");
+			}
+			
+			break;
+			
+			case "lageritem":
+			// I_ID, Name, Preis, Menge
+			try{
+				
+				if(req.body.I_ID){
+					
+					con.query("", function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error");
+                        }
+                        else { 
+						
+						
+                        }
+				});	
+				}
+				else{
+					fireResponse(res, 500, "params are missing or wrong");
+				}
+			}
+			catch(e){
+				fireResponse(res, 500, "something went wrong!");
+			}
+			
+			break;
+			
+			case "verkauf":
+			//S_ID, Verkaufsdatum, KundenID, MandatarID
+			try{
+				 if(req.body.S_ID){
+				  con.query("", function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error (DB)");
+                        }
+                        else { 
+							
+                        }
+                    });		
+			 } 
+			 else{
+				  fireResponse(res, 400, "some params are missing!");
+			 }
+			}
+			catch(e){
+				fireResponse(res, 500, "something went wrong!");
+			}
+			
+			break;
+			
+			case "rechnung":
+			//Rechnungsnummer, schonbezahlt, S_ID
+			try{
+				 if(req.body.Rechnungsnummer){
+				  con.query("", function (err, result, fields) {
+				
+                        if (err) {
+                            fireResponse(res, 500, "error (DB)");
+                        }
+                        else { 
+								
+                        }
+                    });		
+			 } 
+			 else{
+				  fireResponse(res, 400, "some params are missing!");
+			 }
+			}
+			catch(e){
+				fireResponse(res, 500, "something went wrong!");
+			}
+			
+			break;
+			
+			
+			default:
+				fireResponse(res, 400, "error");
+			break;
+
+	}	
+}
+} catch (e) {
+    fireResponse(res, 500, "oops, something went wrong");
+}
+});
+
+*/
 
 app.get('/', function (req, res) {
     fireResponse(res,200, "Server is running!")
