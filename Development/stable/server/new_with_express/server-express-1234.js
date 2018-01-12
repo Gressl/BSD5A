@@ -420,28 +420,62 @@ try{
 }
 });
 
-//REMOVE 
-/*
-app.delete('/delete', function(req, res) {
-	try{
+//UPDATE
+app.patch('/update', function(req, res) {
+try{
 	console.log(req.body);
+	
 	
 	if(!req.body.table){
 		fireResponse(res, 400, "no table specified!");
 	} 
 	else{
 		
+		
 		switch (req.body.table.toLowerCase()) {
-			case "kunde":
 			
+			case "kunde":
+			 
 			 try{
-			 if(req.body.K_ID){
-				  con.query("", function (err, result, fields) {
+			 
+			 if(req.body.table && req.body.K_ID && req.body.update_data){
+				  con.query("select kund.K_ID from Mandatar m  join Verkauf k on k.MandatarID = m.M_ID join Kunde kund on kund.K_ID = k.KundenID  where M_ID = \'"+ creds[0] +"\' AND Passwort = \'" + creds[1] + "\'", function (err, result, fields) {
 				
                         if (err) {
                             fireResponse(res, 500, "error (DB)");
                         }
                         else { 
+							var is_mycustomer = false;
+							result.forEach(function(object) {
+							 if(object.K_ID == req.body.K_ID){
+								 is_mycustomer = true;
+							 }
+							});
+								
+								if(is_mycustomer == true){
+									var querybuilder = "Update Kunde SET ";
+									for(var i in req.body.update_data) {
+									   querybuilder += i + "=" + "\'"+ req.body.update_data[i] + "\'" + ",";
+									}
+									
+									var query = querybuilder.substr(0, querybuilder.length-1);
+									query += " WHERE K_ID = \'"+ req.body.K_ID +"\'";
+									console.log(query);
+									
+									 con.query(query, function (err1, result1, fields1) {
+
+										if (err1) {
+											fireResponse(res, 500, err1);
+										}
+										else { 
+											 fireResponse(res, 200, result1);
+											 }
+											});
+								}
+								
+								else{
+									  fireResponse(res, 404, "Costumer not in your list");
+								}
 							
                         }
                     });		
@@ -461,10 +495,11 @@ app.delete('/delete', function(req, res) {
 			//I_ID, S_ID, ItemMenge, AktuellerPreis
 			try{
 				
-				if(req.body.I_ID && req.body.S_ID){
-					
+				if(req.body.I_ID && req.body.S_ID && req.body.ItemMenge && req.body.AktuellerPreis){
+					 var query = "insert into Lagerentnahme(I_ID, S_ID, ItemMenge, AktuellerPreis) values(\'"  + req.body.I_ID + "\', \'" + req.body.S_ID + "\', \'" + req.body.ItemMenge + "\', \'" + req.body.AktuellerPreis + "\')";
+			 
 			 console.log(query);
-	             con.query("", function (err, result, fields) {
+	             con.query(query, function (err, result, fields) {
 				
                         if (err) {
                             fireResponse(res, 500, "error");
@@ -487,18 +522,40 @@ app.delete('/delete', function(req, res) {
 			
 			case "lageritem":
 			// I_ID, Name, Preis, Menge
+			//select I_ID from Lageritem order by I_ID desc limit 1
 			try{
 				
-				if(req.body.I_ID){
+				if(req.body.Name && req.body.Preis && req.body.Menge){
 					
-					con.query("", function (err, result, fields) {
+					con.query("select I_ID from Lageritem order by I_ID desc limit 1", function (err, result, fields) {
 				
                         if (err) {
                             fireResponse(res, 500, "error");
                         }
                         else { 
 						
-						
+							var oldstring = result[0].I_ID;
+							var oldid = oldstring.substring(2,4);
+							var newid = parseInt(oldid);
+							newid++;
+							
+							var newstring = "LI0" + newid;
+							
+							console.log(newid);
+							
+							console.log(result[0]);
+							var query = "insert into Lageritem(I_ID, Name, Preis, Menge) values(\'"  + newstring + "\', \'" + req.body.Name + "\', \'" + req.body.Preis + "\', \'" + req.body.Menge + "\')";
+							console.log(query);
+							con.query(query, function (err1, result, fields) {
+				
+							if (err) {
+								fireResponse(err1, 500, "error");
+							}
+							else { 
+								var ret = createJSONGetTableResponse(result);
+								fireResponse(res,200, ret);
+							}
+							});	
                         }
 				});	
 				}
@@ -515,14 +572,30 @@ app.delete('/delete', function(req, res) {
 			case "verkauf":
 			//S_ID, Verkaufsdatum, KundenID, MandatarID
 			try{
-				 if(req.body.S_ID){
-				  con.query("", function (err, result, fields) {
+				 if(req.body.Verkaufsdatum && req.body.KundenID && req.body.MandatarID){
+				  con.query("select S_ID from Verkauf order by S_ID desc limit 1", function (err, result, fields) {
 				
                         if (err) {
                             fireResponse(res, 500, "error (DB)");
                         }
                         else { 
+								var oldstring = result[0].S_ID;
+								var oldid = oldstring.substring(2,4);
+								var newid = parseInt(oldid);
+								newid++;
 							
+							   var newstring = "SA0" + newid;
+							
+							
+								con.query("insert into Verkauf(S_ID, Verkaufsdatum, KundenID, MandatarID) values(\'"  + newstring + "\', \'" + req.body.Verkaufsdatum + "\', \'" + req.body.KundenID + "\', \'" + req.body.MandatarID + "\')", function (err1, result1, fields) {
+				
+								if (err1) {
+									fireResponse(res, 500, "error (DB)");
+								}
+								else { 
+									fireResponse(res,200, result1);
+								}
+								});		
                         }
                     });		
 			 } 
@@ -539,14 +612,31 @@ app.delete('/delete', function(req, res) {
 			case "rechnung":
 			//Rechnungsnummer, schonbezahlt, S_ID
 			try{
-				 if(req.body.Rechnungsnummer){
-				  con.query("", function (err, result, fields) {
+				 if(req.body.schonbezahlt && req.body.S_ID ){
+				  con.query("select Rechnungsnummer from Rechnung order by Rechnungsnummer desc limit 1", function (err, result, fields) {
 				
                         if (err) {
                             fireResponse(res, 500, "error (DB)");
                         }
                         else { 
-								
+								var oldstring = result[0].Rechnungsnummer;
+								var oldid = oldstring.substring(2,4);
+								var newid = parseInt(oldid);
+								newid++;
+							
+							   var newstring = "AT0" + newid;
+							
+							
+								con.query("insert into Rechnung(Rechnungsnummer, schonbezahlt, S_ID) values(\'"  + newstring + "\', \'" + req.body.schonbezahlt + "\', \'" + req.body.S_ID + "\')", function (err1, result1, fields) {
+				
+								if (err1) {
+									fireResponse(res, 500, "error (DB)");
+									console.log(err1);
+								}
+								else { 
+									fireResponse(res,200, result1);
+								}
+								});		
                         }
                     });		
 			 } 
@@ -564,15 +654,17 @@ app.delete('/delete', function(req, res) {
 			default:
 				fireResponse(res, 400, "error");
 			break;
-
+			
+			
+		}
+	
 	}	
-}
 } catch (e) {
     fireResponse(res, 500, "oops, something went wrong");
 }
 });
 
-*/
+
 
 app.get('/', function (req, res) {
     fireResponse(res,200, "Server is running!")
