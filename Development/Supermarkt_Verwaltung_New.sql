@@ -37,7 +37,7 @@ CREATE TABLE `Kunde` (
 
 LOCK TABLES `Kunde` WRITE;
 /*!40000 ALTER TABLE `Kunde` DISABLE KEYS */;
-INSERT INTO `Kunde` VALUES ('1','NeuerHans','Ackerweg','AT00102385'),('2','Franz','Kaerntner Strasse','AT00187965'),('3','Kunz','Ossiacher Zeile','AT00107915'),('4','Mick GmbH','Reinfeldstrasse','AT82648208');
+INSERT INTO `Kunde` VALUES ('1','Neu','Neu1','AT00102385'),('2','HartbergerGmbH','Kaertnerstrasse','AT00187965'),('3','Kunz','Ossiacher Zeile','AT00107915'),('4','Mick GmbH','Reinfeldstrasse','AT82648208'),('5','Deutschmann','MÃ¼nchnerstrasse','DE04843199'),('6','Hinz','Feldweg','AT13975648'),('7','Maurer','Weg 1','AT007');
 /*!40000 ALTER TABLE `Kunde` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -66,7 +66,7 @@ CREATE TABLE `Lagerentnahme` (
 
 LOCK TABLES `Lagerentnahme` WRITE;
 /*!40000 ALTER TABLE `Lagerentnahme` DISABLE KEYS */;
-INSERT INTO `Lagerentnahme` VALUES ('LI01','SA01',20,1.10),('LI02','SA02',10,3.50),('LI04','SA01',5,5.30);
+INSERT INTO `Lagerentnahme` VALUES ('LI01','SA01',20,1.10),('LI01','SA02',15,1.00),('LI01','SA05',10,123.00),('LI02','SA02',10,3.50),('LI02','SA03',10,5.20),('LI03','SA04',100,10.00),('LI03','SA07',10,6.00),('LI04','SA01',5,5.30),('LI04','SA05',1,5.00);
 /*!40000 ALTER TABLE `Lagerentnahme` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -92,7 +92,7 @@ CREATE TABLE `Lageritem` (
 
 LOCK TABLES `Lageritem` WRITE;
 /*!40000 ALTER TABLE `Lageritem` DISABLE KEYS */;
-INSERT INTO `Lageritem` VALUES ('LI01','Liter Milch',1.00,100),('LI02','Kilo Vollkornbrot',3.00,30),('LI03','500g Honig',5.50,60),('LI04','Tube Ketchup',3.20,50);
+INSERT INTO `Lageritem` VALUES ('LI01','Liter Milch',1.00,100),('LI02','Kilo Vollkornbrot',3.00,30),('LI03','500g Honig',5.50,60),('LI04','Tube Ketchup',3.20,50),('LI05','Komischer Karton',11.00,1),('LI06','TestItem',4.00,1);
 /*!40000 ALTER TABLE `Lageritem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -119,7 +119,7 @@ CREATE TABLE `Mandatar` (
 
 LOCK TABLES `Mandatar` WRITE;
 /*!40000 ALTER TABLE `Mandatar` DISABLE KEYS */;
-INSERT INTO `Mandatar` VALUES ('AT01','Hofer GmbH','Kreuzweg 27','AT01','addb0f5e7826c857d7376d1bd9bc33c0c544790a2eac96144a8af22b1298c940'),('AT02','Lidl GmbH','Villacherstrasse 12','AT02','1bfdbcd27fcaef3d5ac75f5473f6d764d4cfe83160dc067a92a19d55747e88b9');
+INSERT INTO `Mandatar` VALUES ('AT01','Hofer GmbH','Kreuzweg 27','AT01','addb0f5e7826c857d7376d1bd9bc33c0c544790a2eac96144a8af22b1298c940'),('AT02','Lidl GmbH','Villacherstrasse 12','AT02','1bfdbcd27fcaef3d5ac75f5473f6d764d4cfe83160dc067a92a19d55747e88b9'),('AT03','GreiÃŸler SÃ¼d','Ossiacherzeile 3','AT03','cfdef42a4579a8e2e8fafa6ba9a8cf07afd6a1fa5a64f9c154b75ac92017acf3');
 /*!40000 ALTER TABLE `Mandatar` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,7 +146,7 @@ CREATE TABLE `Rechnung` (
 
 LOCK TABLES `Rechnung` WRITE;
 /*!40000 ALTER TABLE `Rechnung` DISABLE KEYS */;
-INSERT INTO `Rechnung` VALUES ('AT02938',0,'SA02'),('AT12345',1,'SA01');
+INSERT INTO `Rechnung` VALUES ('AT01',0,'SA02'),('AT02',1,'SA01');
 /*!40000 ALTER TABLE `Rechnung` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,7 +176,7 @@ CREATE TABLE `Verkauf` (
 
 LOCK TABLES `Verkauf` WRITE;
 /*!40000 ALTER TABLE `Verkauf` DISABLE KEYS */;
-INSERT INTO `Verkauf` VALUES ('SA01','2020-12-20','1','AT01'),('SA02','2012-03-20','2','AT01'),('SA03','2001-01-20','1','AT02');
+INSERT INTO `Verkauf` VALUES ('SA01','2020-12-20','1','AT01'),('SA02','2012-03-20','2','AT01'),('SA03','2001-01-20','1','AT02'),('SA04','2020-12-20','2','AT03'),('SA05','2003-05-20','3','AT03'),('SA06','2026-10-20','5','AT02'),('SA07','2017-10-20','6','AT01'),('SA08','2001-04-03','2','AT02');
 /*!40000 ALTER TABLE `Verkauf` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,4 +197,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-11-15 12:51:27
+-- Dump completed on 2018-01-24 10:57:52
