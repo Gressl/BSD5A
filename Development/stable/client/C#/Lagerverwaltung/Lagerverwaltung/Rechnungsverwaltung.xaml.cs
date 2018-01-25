@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,20 +30,18 @@ namespace Lagerverwaltung
             InitializeComponent();
             username = user;
             hashedpasswort = pwd;
-            resstring = request.getCall("http://villach.city:1234/get?table=Rechnung", username, hashedpasswort);
+            resstring = request.getCall("http://10.0.0.101:1234/get?table=Rechnung", username, hashedpasswort);
 
 
             try
             {
-                string[] splitted = resstring.Split('-');
+                var myar = JsonConvert.DeserializeObject<List<Rechnung>>(resstring);
 
-                for (int i = 1; i < splitted.Length; i++)
+                for (int i = 0; i < myar.Count; i++)
                 {
-                    string[] oneRechnung = splitted[i].Split(';');
-                    Rechnung r = new Rechnung(Convert.ToInt32(oneRechnung[0]),Convert.ToBoolean(oneRechnung[1]));
-                    myRechnungen.Add(r);
-                    listbox_Rechnung.Items.Add(r);
+                    listbox_Rechnung.Items.Add(myar[i]);
                 }
+
             }
             catch (Exception)
             {

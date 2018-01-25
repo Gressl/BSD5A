@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -29,20 +30,18 @@ namespace Lagerverwaltung
             InitializeComponent();
             username = user;
             hashedpasswort = pwd;
-            resstring = request.getCall("http://villach.city:1234/get?table=Kunde", username, hashedpasswort);
+            resstring = request.getCall("http://10.0.0.101:1234/get?table=Kunde", username, hashedpasswort);
         
 
             try
-            {
-                string[] splitted = resstring.Split('-');
-
-                for (int i = 1; i < splitted.Length; i++)
-                {
-                    string[] onecustomer = splitted[i].Split(';');
-                    Kunde k = new Kunde(Convert.ToInt32(onecustomer[0]), onecustomer[1], onecustomer[2], onecustomer[3]);
-                    myKunden.Add(k);
-                    lbl_Kunde.Items.Add(k);
-                }
+            {   
+                var myar = JsonConvert.DeserializeObject<List<Kunde>>(resstring);
+             
+                for(int i=0; i < myar.Count;i++)
+                 {
+                    lbl_Kunde.Items.Add(myar[i]);
+                 }
+          
             }
             catch (Exception)
             {
