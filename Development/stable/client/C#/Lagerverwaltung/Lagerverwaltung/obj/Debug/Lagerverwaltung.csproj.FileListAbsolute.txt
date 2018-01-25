@@ -74,3 +74,5 @@ C:\Users\Prey\Documents\GitHub\Lagerverwaltung-Supermarkt\Development\stable\cli
 C:\Users\Prey\Documents\GitHub\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\obj\Debug\Rechnungsverwaltung.baml
 C:\Users\Prey\Documents\GitHub\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\obj\Debug\LagerItemAdd.g.cs
 C:\Users\Prey\Documents\GitHub\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\obj\Debug\LagerItemAdd.baml
+C:\Users\Prey\Documents\GitHub\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\bin\Debug\Newtonsoft.Json.dll
+C:\Users\Prey\Documents\GitHub\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\bin\Debug\Newtonsoft.Json.xml

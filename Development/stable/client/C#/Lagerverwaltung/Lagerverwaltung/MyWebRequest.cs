@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -11,7 +12,7 @@ namespace Lagerverwaltung
     class MyWebRequest
     {
         private WebRequest request;
-       
+
 
         public String getLoginCall(string url, string username, string password)
         {
@@ -53,30 +54,29 @@ namespace Lagerverwaltung
             return responseString;
         }
 
-        public String addData(string url, string username, string password, Object k)
+        public bool addKunden(string url, string username, string password, Kunde k)
         {
-            string responseString = "false";
 
-            try
+            request = (HttpWebRequest)WebRequest.Create(url);
+            string svcCredentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(username + ":" + password));
+            request.Headers.Add("Authorization", "Basic " + svcCredentials);
+            request.ContentType = "application/json";
+            request.Method = "PUT";
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
-                request = (HttpWebRequest)WebRequest.Create(url);
-                string svcCredentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(username + ":" + password));
-                request.Headers.Add("Authorization", "Basic " + svcCredentials);
-                
-                Stream dataStream = request.GetRequestStream();
-                //dataStream.Write(k, 0);
-
-                dataStream.Close();
-                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
-                responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+                string json = JsonConvert.SerializeObject(k);
+                streamWriter.Write(json);
             }
-            catch (WebException ex)
+            var httpResponse = (HttpWebResponse)request.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
             {
-                return ex.Message;
+                var responseText = streamReader.ReadToEnd();
+                return true;
             }
-
-            return responseString;
         }
-
     }
 }
+          
+        
+         
