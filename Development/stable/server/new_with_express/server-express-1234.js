@@ -166,7 +166,7 @@ app.get('/get', function (req, res) {
 			
 			case "lageritem":
 			
-			  var query = "select li.I_ID, li.Name, li.Preis As Preis_per_Stk, li.Menge from Mandatar m join Verkauf v on m.M_ID = v.MandatarID join Lagerentnahme l on l.S_ID = v.S_ID join Lageritem li on li.I_ID = l.I_ID where m.M_ID = \'"+ creds[0] +"\' AND m.Passwort = \'" + creds[1] + "\'";
+			  var query = "select lm.I_ID, lm.Name, lm.Preis, lm.Menge from Lageritem lm join Mandatar m on lm.MandatarID = m.M_ID where m.M_ID = \'"+ creds[0] +"\' AND m.Passwort = \'" + creds[1] + "\'";
 			 
 			 console.log(query);
 	             con.query(query, function (err, result, fields) {
@@ -300,7 +300,7 @@ try{
 							console.log(newid);
 							
 							console.log(result[0]);
-							var query = "insert into Lageritem(I_ID, Name, Preis, Menge) values(\'"  + newstring + "\', \'" + req.body.Name + "\', \'" + req.body.Preis + "\', \'" + req.body.Menge + "\')";
+							var query = "insert into Lageritem(I_ID, Name, Preis, Menge, MandatarID) values(\'"  + newstring + "\', \'" + req.body.Name + "\', \'" + req.body.Preis + "\', \'" + req.body.Menge + "\', \'" + creds[0] + "\')";
 							console.log(query);
 							con.query(query, function (err1, result, fields) {
 				
@@ -421,6 +421,7 @@ try{
 });
 
 //UPDATE
+/*
 app.patch('/update', function(req, res) {
 try{
 	console.log(req.body);
@@ -663,7 +664,7 @@ try{
     fireResponse(res, 500, "oops, something went wrong");
 }
 });
-
+*/
 
 
 app.get('/', function (req, res) {
