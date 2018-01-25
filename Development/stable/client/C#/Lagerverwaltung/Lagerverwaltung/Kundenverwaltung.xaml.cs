@@ -34,7 +34,8 @@ namespace Lagerverwaltung
         
 
             try
-            {   
+            {
+                MessageBox.Show(resstring);
                 var myar = JsonConvert.DeserializeObject<List<Kunde>>(resstring);
              
                 for(int i=0; i < myar.Count;i++)
@@ -55,7 +56,7 @@ namespace Lagerverwaltung
             try
             {
                 Kunde k = (Kunde)lbl_Kunde.SelectedItem;
-                txt_ID.Text = Convert.ToString(k.id);
+                txt_ID.Text = Convert.ToString(k.K_ID);
                 txt_Name.Text = k.Name;
                 txt_Adresse.Text = k.Adresse;
                 txt_UID.Text = k.UID;

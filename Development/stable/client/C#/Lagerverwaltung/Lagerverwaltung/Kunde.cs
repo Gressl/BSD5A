@@ -9,25 +9,26 @@ namespace Lagerverwaltung
     class Kunde
     {
      
-        public  int id;
+        public  int K_ID;
         public String Name;
         public String Adresse;
         public String UID;
-        public String Table="Kunde";
+        public String table="Kunde";
 
-        public Kunde(int _id,string _name, string _adresse, string _uid)
+        public Kunde(int _K_ID,string _name, string _adresse, string _uid)
         {
-            id = _id;
+            K_ID = _K_ID;
             Name = _name;
             Adresse = _adresse;
             UID = _uid;
             
         }
-       
+
+
 
         public override string ToString()
         {
-            return id + " " + Name;
+            return K_ID + " " + Name;
         }
 
     }
