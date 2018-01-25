@@ -66,6 +66,7 @@ namespace Lagerverwaltung
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
                 string json = JsonConvert.SerializeObject(k);
+                Console.WriteLine(json);
                 streamWriter.Write(json);
             }
             var httpResponse = (HttpWebResponse)request.GetResponse();
