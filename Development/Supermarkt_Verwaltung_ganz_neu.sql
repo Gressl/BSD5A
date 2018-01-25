@@ -66,7 +66,7 @@ CREATE TABLE `Lagerentnahme` (
 
 LOCK TABLES `Lagerentnahme` WRITE;
 /*!40000 ALTER TABLE `Lagerentnahme` DISABLE KEYS */;
-INSERT INTO `Lagerentnahme` VALUES ('LI01','SA01',20,1.10),('LI01','SA02',15,1.00),('LI01','SA05',10,123.00),('LI02','SA02',10,3.50),('LI02','SA03',10,5.20),('LI03','SA04',100,10.00),('LI03','SA07',10,6.00),('LI04','SA01',5,5.30),('LI04','SA05',1,5.00);
+INSERT INTO `Lagerentnahme` VALUES ('LI01','SA01',15,1.00),('LI02','SA02',5,6.00),('LI03','SA03',50,3.00),('LI04','SA03',3,3.63),('LI05','SA04',10,2.56),('LI06','SA04',3,6.50);
 /*!40000 ALTER TABLE `Lagerentnahme` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -82,7 +82,9 @@ CREATE TABLE `Lageritem` (
   `Name` varchar(20) DEFAULT NULL,
   `Preis` decimal(5,2) DEFAULT NULL,
   `Menge` int(15) DEFAULT NULL,
-  PRIMARY KEY (`I_ID`)
+  `MandatarID` varchar(10) DEFAULT NULL,
+  PRIMARY KEY (`I_ID`),
+  KEY `Lageritem` (`MandatarID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -92,7 +94,7 @@ CREATE TABLE `Lageritem` (
 
 LOCK TABLES `Lageritem` WRITE;
 /*!40000 ALTER TABLE `Lageritem` DISABLE KEYS */;
-INSERT INTO `Lageritem` VALUES ('LI01','Liter Milch',1.00,100),('LI02','Kilo Vollkornbrot',3.00,30),('LI03','500g Honig',5.50,60),('LI04','Tube Ketchup',3.20,50),('LI05','Komischer Karton',11.00,1),('LI06','TestItem',4.00,1);
+INSERT INTO `Lageritem` VALUES ('LI01','Liter Milch',1.00,100,'AT01'),('LI02','Kilo Vollkornbrot',3.00,30,'AT01'),('LI03','500g Honig',5.50,60,'AT02'),('LI04','Tube Ketchup',3.20,50,'AT02'),('LI05','Komischer Karton',11.00,1,'AT03'),('LI06','TestItem',4.00,1,'AT03');
 /*!40000 ALTER TABLE `Lageritem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -146,7 +148,6 @@ CREATE TABLE `Rechnung` (
 
 LOCK TABLES `Rechnung` WRITE;
 /*!40000 ALTER TABLE `Rechnung` DISABLE KEYS */;
-INSERT INTO `Rechnung` VALUES ('AT01',0,'SA02'),('AT02',1,'SA01');
 /*!40000 ALTER TABLE `Rechnung` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,7 +177,7 @@ CREATE TABLE `Verkauf` (
 
 LOCK TABLES `Verkauf` WRITE;
 /*!40000 ALTER TABLE `Verkauf` DISABLE KEYS */;
-INSERT INTO `Verkauf` VALUES ('SA01','2020-12-20','1','AT01'),('SA02','2012-03-20','2','AT01'),('SA03','2001-01-20','1','AT02'),('SA04','2020-12-20','2','AT03'),('SA05','2003-05-20','3','AT03'),('SA06','2026-10-20','5','AT02'),('SA07','2017-10-20','6','AT01'),('SA08','2001-04-03','2','AT02');
+INSERT INTO `Verkauf` VALUES ('SA01','2000-03-11','1','AT01'),('SA02','2018-12-01','2','AT01'),('SA03','1999-05-05','3','AT02'),('SA04','1989-12-12','4','AT03');
 /*!40000 ALTER TABLE `Verkauf` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,4 +198,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-24 10:57:52
+-- Dump completed on 2018-01-25 20:15:00
