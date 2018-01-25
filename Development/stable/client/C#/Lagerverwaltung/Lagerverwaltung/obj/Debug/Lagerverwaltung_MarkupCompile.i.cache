@@ -10,11 +10,11 @@ none
 false
 DEBUG;TRACE
 C:\Users\Prey\Documents\GitHub\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\App.xaml
-41377289997
+7-310197064
 
-14-140394499
+19-518922463
 13738642453
-KundenAdd.xaml;Kundenverwaltung.xaml;MainWindow.xaml;Verwaltung.xaml;
+KundenAdd.xaml;Kundenverwaltung.xaml;LagerItemAdd.xaml;LagerItemVerwaltung.xaml;MainWindow.xaml;Rechnungsverwaltung.xaml;Verwaltung.xaml;
 
-True
+False
 

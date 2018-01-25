@@ -1,0 +1,18 @@
+﻿<Window x:Class="Lagerverwaltung.Rechnungsverwaltung"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:Lagerverwaltung"
+        mc:Ignorable="d"
+        Title="Rechnungsverwaltung" Height="400.455" Width="492.113">
+    <Grid>
+        <ListBox x:Name="listbox_Rechnung" HorizontalAlignment="Left" Height="337" Margin="10,10,0,-78" VerticalAlignment="Top" Width="251" SelectionChanged="listbox_Rechnung_SelectionChanged" />
+        <Label x:Name="label" Content="Nummer" HorizontalAlignment="Left" Margin="266,10,0,0" VerticalAlignment="Top"/>
+        <Label x:Name="label1" Content="bezahlt" HorizontalAlignment="Left" Margin="266,36,0,0" VerticalAlignment="Top"/>
+        <TextBox x:Name="txt_ID" HorizontalAlignment="Left" Height="23" Margin="337,10,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
+        <CheckBox x:Name="bezahlt" Content="" HorizontalAlignment="Left" Margin="337,42,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="btn_Back" Content="Back" HorizontalAlignment="Left" Margin="285,283,0,0" VerticalAlignment="Top" Width="100" Height="64" Click="btn_Back_Click"/>
+
+    </Grid>
+</Window>

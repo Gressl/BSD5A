@@ -15,25 +15,23 @@ using System.Windows.Shapes;
 namespace Lagerverwaltung
 {
     /// <summary>
-    /// Interaktionslogik für KundenAdd.xaml
+    /// Interaktionslogik für LagerItemAdd.xaml
     /// </summary>
-    public partial class KundenAdd : Window
+    public partial class LagerItemAdd : Window
     {
-        public KundenAdd()
+        public LagerItemAdd()
         {
             InitializeComponent();
         }
 
-        private void btnCancel_Click(object sender, RoutedEventArgs e)
+        private void btn_add_Click(object sender, RoutedEventArgs e)
         {
-            this.Close();
-        
+            LagerItem k = new LagerItem(Int32.Parse(txt_ID.Text), txt_Name.Text,Int32.Parse(txt_Preis.Text), Int32.Parse(txt_Menge.Text));
         }
 
-        private void btnAdd_Click(object sender, RoutedEventArgs e)
+        private void btn_back_Click(object sender, RoutedEventArgs e)
         {
-            Kunde k = new Kunde(Int32.Parse(txt_ID.Text), txt_Name.Text, txt_Adresse.Text, txt_UID.Text);
-          
+            this.Close();
         }
     }
 }

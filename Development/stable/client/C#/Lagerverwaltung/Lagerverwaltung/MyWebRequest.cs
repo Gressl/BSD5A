@@ -53,5 +53,30 @@ namespace Lagerverwaltung
             return responseString;
         }
 
+        public String addData(string url, string username, string password, Object k)
+        {
+            string responseString = "false";
+
+            try
+            {
+                request = (HttpWebRequest)WebRequest.Create(url);
+                string svcCredentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes(username + ":" + password));
+                request.Headers.Add("Authorization", "Basic " + svcCredentials);
+                
+                Stream dataStream = request.GetRequestStream();
+                //dataStream.Write(k, 0);
+
+                dataStream.Close();
+                HttpWebResponse response = (HttpWebResponse)request.GetResponse();
+                responseString = new StreamReader(response.GetResponseStream()).ReadToEnd();
+            }
+            catch (WebException ex)
+            {
+                return ex.Message;
+            }
+
+            return responseString;
+        }
+
     }
 }

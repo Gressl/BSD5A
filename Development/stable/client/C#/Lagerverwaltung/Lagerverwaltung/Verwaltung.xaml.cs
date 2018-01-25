@@ -22,6 +22,8 @@ namespace Lagerverwaltung
         string username;
         string hashedpassword;
         Kundenverwaltung k;
+        Rechnungsverwaltung r;
+        LagerItemVerwaltung l;
 
         public Verwaltung(string user, string password)
         {
@@ -41,6 +43,18 @@ namespace Lagerverwaltung
         {
             k = new Kundenverwaltung(username, hashedpassword);
             k.Show();
+        }
+
+        private void button1_Click(object sender, RoutedEventArgs e)
+        {
+            r = new Rechnungsverwaltung(username, hashedpassword);
+            r.Show();
+        }
+
+        private void button2_Click(object sender, RoutedEventArgs e)
+        {
+            l = new LagerItemVerwaltung(username, hashedpassword);
+            l.Show();
         }
     }
 }
