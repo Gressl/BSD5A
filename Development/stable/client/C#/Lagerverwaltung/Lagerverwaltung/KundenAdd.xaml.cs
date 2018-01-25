@@ -34,8 +34,9 @@ namespace Lagerverwaltung
         private void btnAdd_Click(object sender, RoutedEventArgs e)
         {
             Kunde k = new Kunde(Int32.Parse(txt_ID.Text), txt_Name.Text, txt_Adresse.Text, txt_UID.Text);
-            
             request.addKunden(k);
+            MessageBox.Show("Done");
+            this.Close();
         }
     }
 }

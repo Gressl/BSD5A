@@ -12,6 +12,7 @@ namespace Lagerverwaltung
         public String Name;
         public int Preis;
         public int Menge;
+        public String table = "LagerItem";
 
         public LagerItem(int _id, string _name, int _preis, int _menge)
         {

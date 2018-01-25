@@ -66,7 +66,7 @@ namespace Lagerverwaltung
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
                 string json = JsonConvert.SerializeObject(k);
-                Console.WriteLine(json);
+
                 streamWriter.Write(json);
             }
             var httpResponse = (HttpWebResponse)request.GetResponse();
@@ -76,7 +76,30 @@ namespace Lagerverwaltung
                 return true;
             }
         }
-    }
+
+        public bool addLagerItem(LagerItem k)
+        {
+
+            request = (HttpWebRequest)WebRequest.Create("http://10.0.0.101:1234/add");
+            string svcCredentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes("AT01" + ":" + "addb0f5e7826c857d7376d1bd9bc33c0c544790a2eac96144a8af22b1298c940"));
+            request.Headers.Add("Authorization", "Basic " + svcCredentials);
+            request.ContentType = "application/json";
+            request.Method = "PUT";
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                string json = JsonConvert.SerializeObject(k);
+
+                streamWriter.Write(json);
+            }
+            var httpResponse = (HttpWebResponse)request.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var responseText = streamReader.ReadToEnd();
+                return true;
+            }
+        }
+    } 
 }
           
         

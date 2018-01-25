@@ -33,7 +33,6 @@ namespace Lagerverwaltung
                 hashedpasswort = pwd;
                 resstring = request.getCall("http://10.0.0.101:1234/get?table=LagerItem", username, hashedpasswort);
 
-
                 try
                 {
                     var myar = JsonConvert.DeserializeObject<List<LagerItem>>(resstring);

@@ -47,14 +47,15 @@ namespace Lagerverwaltung
 
         private void button1_Click(object sender, RoutedEventArgs e)
         {
-            r = new Rechnungsverwaltung(username, hashedpassword);
-            r.Show();
+            l = new LagerItemVerwaltung(username, hashedpassword);
+            l.Show();
+         
         }
 
         private void button2_Click(object sender, RoutedEventArgs e)
         {
-            l = new LagerItemVerwaltung(username, hashedpassword);
-            l.Show();
+            r = new Rechnungsverwaltung(username, hashedpassword);
+            r.Show();
         }
     }
 }

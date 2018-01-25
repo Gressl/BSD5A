@@ -28,7 +28,9 @@ namespace Lagerverwaltung
         private void btn_add_Click(object sender, RoutedEventArgs e)
         {
             LagerItem k = new LagerItem(Int32.Parse(txt_ID.Text), txt_Name.Text,Int32.Parse(txt_Preis.Text), Int32.Parse(txt_Menge.Text));
-            
+            request.addLagerItem(k);
+            MessageBox.Show("Done");
+            this.Close();
         }
 
         private void btn_back_Click(object sender, RoutedEventArgs e)
