@@ -27,6 +27,7 @@ CREATE TABLE `Kunde` (
   `Name` varchar(20) DEFAULT NULL,
   `Adresse` varchar(100) DEFAULT NULL,
   `UID` varchar(20) DEFAULT NULL,
+  `M_ID` varchar(10) NOT NULL,
   PRIMARY KEY (`K_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -37,7 +38,7 @@ CREATE TABLE `Kunde` (
 
 LOCK TABLES `Kunde` WRITE;
 /*!40000 ALTER TABLE `Kunde` DISABLE KEYS */;
-INSERT INTO `Kunde` VALUES ('1','Neu','Neu1','AT00102385'),('2','HartbergerGmbH','Kaertnerstrasse','AT00187965'),('3','Kunz','Ossiacher Zeile','AT00107915'),('4','Mick GmbH','Reinfeldstrasse','AT82648208'),('5','Deutschmann','MÃ¼nchnerstrasse','DE04843199'),('6','Hinz','Feldweg','AT13975648'),('7','Maurer','Weg 1','AT007');
+INSERT INTO `Kunde` VALUES ('1','Neu','Neu1','AT00102385','AT01'),('2','HartbergerGmbH','Kaertnerstrasse','AT00187965','AT01'),('3','Kunz','Ossiacher Zeile','AT00107915','AT02'),('4','Mick GmbH','Reinfeldstrasse','AT82648208','AT03');
 /*!40000 ALTER TABLE `Kunde` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -94,7 +95,7 @@ CREATE TABLE `Lageritem` (
 
 LOCK TABLES `Lageritem` WRITE;
 /*!40000 ALTER TABLE `Lageritem` DISABLE KEYS */;
-INSERT INTO `Lageritem` VALUES ('LI01','Liter Milch',1.00,100,'AT01'),('LI02','Kilo Vollkornbrot',3.00,30,'AT01'),('LI03','500g Honig',5.50,60,'AT02'),('LI04','Tube Ketchup',3.20,50,'AT02'),('LI05','Komischer Karton',11.00,1,'AT03'),('LI06','TestItem',4.00,1,'AT03');
+INSERT INTO `Lageritem` VALUES ('LI01','Liter Milch',1.00,100,'AT01'),('LI02','Kilo Vollkornbrot',3.00,30,'AT01'),('LI03','500g Honig',5.50,60,'AT02'),('LI04','Tube Ketchup',3.20,50,'AT02'),('LI05','Komischer Karton',11.00,1,'AT03'),('LI06','TestItem',4.00,1,'AT03'),('LI07','Cooles Teil',4.30,5,'AT01'),('LI08','Neues Super Teil',4.30,5,'AT01');
 /*!40000 ALTER TABLE `Lageritem` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -182,6 +183,30 @@ INSERT INTO `Verkauf` VALUES ('SA01','2000-03-11','1','AT01'),('SA02','2018-12-0
 UNLOCK TABLES;
 
 --
+-- Table structure for table `is_kunde`
+--
+
+DROP TABLE IF EXISTS `is_kunde`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `is_kunde` (
+  `K_ID` varchar(10) NOT NULL,
+  `M_ID` varchar(10) NOT NULL,
+  PRIMARY KEY (`K_ID`,`M_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `is_kunde`
+--
+
+LOCK TABLES `is_kunde` WRITE;
+/*!40000 ALTER TABLE `is_kunde` DISABLE KEYS */;
+INSERT INTO `is_kunde` VALUES ('1','AT01'),('2','AT01'),('3','AT02'),('4','AT03');
+/*!40000 ALTER TABLE `is_kunde` ENABLE KEYS */;
+UNLOCK TABLES;
+
+--
 -- Dumping events for database 'Supermarkt_Verwaltung_New'
 --
 
@@ -198,4 +223,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2018-01-25 20:15:00
+-- Dump completed on 2018-01-25 22:02:32
