@@ -43,7 +43,7 @@ public class DataActivity extends AppCompatActivity {
                 break;
             case "verkauf":
                 data = (ArrayList<Verkauf>)getData();
-                //intent = new Intent(this, SalesActivity.class);
+                intent = new Intent(this, SalesActivity.class);
                 break;
             case "lageritem":
                 data = (ArrayList<LagerItem>)getData();
@@ -54,6 +54,7 @@ public class DataActivity extends AppCompatActivity {
         }
         intent.putExtra("data", i.getStringExtra("data"));
         startActivity(intent);
+        finish();
     }
 
     public ArrayList<?> getData(){

@@ -33,7 +33,7 @@ public class RESTConnect extends AsyncTask<Void,Void, Boolean> {
     Button btnLogin;
     String baseURL = "http://10.0.0.101";
     String port = "1234";
-    boolean result = false;
+    boolean result;
     Context ctx;
     Object[] parameters;
 
@@ -79,6 +79,7 @@ public class RESTConnect extends AsyncTask<Void,Void, Boolean> {
 
             InputStream in;
             if(conn.getResponseCode() == 200) {
+                result = true;
                 in = new BufferedInputStream(conn.getInputStream());
                 String data = readStream(in);
                 Intent i = new Intent(ctx, DataActivity.class);
