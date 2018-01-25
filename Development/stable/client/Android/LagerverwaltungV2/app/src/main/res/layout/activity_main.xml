@@ -18,7 +18,8 @@
         android:id="@+id/txtUser"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:hint="User" />
+        android:hint="User"
+        android:text="AT01" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -28,7 +29,8 @@
         android:id="@+id/txtPassword"
         android:layout_below="@+id/txtUser"
         android:layout_alignParentStart="true"
-        android:hint="Password" />
+        android:hint="Password"
+        android:text="geheim" />
 
     <Button
         android:text="Login"

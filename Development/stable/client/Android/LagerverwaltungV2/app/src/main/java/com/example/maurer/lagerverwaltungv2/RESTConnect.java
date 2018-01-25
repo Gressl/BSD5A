@@ -82,7 +82,9 @@ public class RESTConnect extends AsyncTask<Void,Void, Boolean> {
                 in = new BufferedInputStream(conn.getInputStream());
                 String data = readStream(in);
                 Intent i = new Intent(ctx, DataActivity.class);
+                System.out.println(data);
                 i.putExtra("data", data);
+                i.putExtra("table", parameters[0].toString().split("=")[1]);
                 ctx.startActivity(i);
             }
         }

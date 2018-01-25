@@ -61,7 +61,7 @@ public class HubActivity extends AppCompatActivity {
             public void onClick(View v) {
                 //Toast.makeText(MainActivity.this, "Toast", Toast.LENGTH_SHORT).show();
                 Object[] params = new Object[20];
-                params[0] = "/get?table=Kunde";
+                params[0] = "/get?table=kunde";
                 params[1] = txtUser;
                 params[2] = txtPassword;
                 try {

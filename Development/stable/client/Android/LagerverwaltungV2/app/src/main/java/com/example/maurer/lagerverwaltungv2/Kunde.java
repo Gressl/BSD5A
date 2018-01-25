@@ -5,10 +5,10 @@ package com.example.maurer.lagerverwaltungv2;
  */
 
 public class Kunde {
-    private String K_ID;
-    private String Name;
-    private String Adresse;
-    private String UID;
+    public String K_ID;
+    public String Name;
+    public String Adresse;
+    public String UID;
 
     public Kunde(String k_ID, String name, String adresse, String UID) {
         K_ID = k_ID;
@@ -47,5 +47,10 @@ public class Kunde {
 
     public void setUID(String UID) {
         this.UID = UID;
+    }
+
+    @Override
+    public String toString(){
+        return this.Name + " " + this.Adresse + " " + this.UID;
     }
 }
