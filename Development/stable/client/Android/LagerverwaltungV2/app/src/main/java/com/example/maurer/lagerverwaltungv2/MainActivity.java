@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity {
                 params[1] = txtUser.getText();
                 params[2] = txtPassword.getText();
                 try {
-                    if (new RESTConnect(getActivity(), params).execute().get() == false) Toast.makeText(getActivity(), "Invalid Credentials or very wrong Method", Toast.LENGTH_SHORT).show();
+                    if (new RESTConnect(getActivity(), params).execute().get() == false) Toast.makeText(getActivity(), "Something went wrong", Toast.LENGTH_SHORT).show();
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 } catch (ExecutionException e) {

@@ -69,13 +69,31 @@ public class RESTConnect extends AsyncTask<Void,Void, Boolean> {
             txtUser = (String) objects[1].toString();
             txtPassword = (String) objects[2].toString();
             url = new URL(baseURL + ":" + port + objects[0]);
+            conn = (HttpURLConnection) url.openConnection();
+
+            String basicAuth = "Basic " + createBasicAuth(txtUser, txtPassword);
+            conn.setRequestProperty ("Authorization", basicAuth);
+
+            conn.setRequestMethod("GET");
+            conn.connect();
+
+            InputStream in;
+            if(conn.getResponseCode() == 200) {
+                in = new BufferedInputStream(conn.getInputStream());
+                String data = readStream(in);
+                Intent i = new Intent(ctx, DataActivity.class);
+                i.putExtra("data", data);
+                ctx.startActivity(i);
+            }
         }
         catch(Exception ex){
-
+            result = false;
         }
-        return "dummy";
+        finally{
+            conn.disconnect();
+        }
+        return result;
     }
-
 
 
 
@@ -104,7 +122,6 @@ public class RESTConnect extends AsyncTask<Void,Void, Boolean> {
                 ctx.startActivity(i);
             }
             else{
-
                 in = new BufferedInputStream(conn.getErrorStream());
                 result = false;
             }
@@ -122,6 +139,9 @@ public class RESTConnect extends AsyncTask<Void,Void, Boolean> {
         catch (Exception ex){
             ex.printStackTrace();
             return false;
+        }
+        finally {
+            conn.disconnect();
         }
     }
 
