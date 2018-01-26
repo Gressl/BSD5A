@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="197.0" prefWidth="382.0" xmlns="http://javafx.com/javafx/8.0.121" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.mainmenu_Controller">
+   <children>
+      <Button fx:id="bttnKV" layoutX="28.0" layoutY="33.0" mnemonicParsing="false" onMouseClicked="#openKunde" prefHeight="25.0" prefWidth="124.0" text="Kundenverwaltung" />
+      <Button fx:id="bttnLV" layoutX="28.0" layoutY="74.0" mnemonicParsing="false" onMouseClicked="#openLager" prefHeight="25.0" prefWidth="124.0" text="Lagerverwaltung" />
+      <Button fx:id="bttnVV" layoutX="28.0" layoutY="115.0" mnemonicParsing="false" onMouseClicked="#openVerkauf" prefHeight="25.0" prefWidth="124.0" text="Verkaufsveraltung" />
+      <Button fx:id="bttnLogout" layoutX="316.0" layoutY="158.0" mnemonicParsing="false" onMouseClicked="#exit" text="Logout" />
+      <Label fx:id="lblError" layoutX="28.0" layoutY="162.0" prefHeight="17.0" prefWidth="282.0" textFill="#f20606" />
+   </children>
+</Pane>
