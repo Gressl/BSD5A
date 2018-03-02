@@ -4,6 +4,7 @@ var helperlib = require('./helper.js');
 var express = require('express');
 var bodyParser = require('body-parser');
 var creds = {};
+var cors = require('cors');
 
 var app = express();
 
@@ -22,11 +23,33 @@ var con = mysql.createConnection({
 
 con.connect();
 
+app.use(cors());
+app.use(cors({ origin: true, credentials: true }));
+app.options('*', cors()); // include before other routes
+
+app.use(function (req, res, next) {
+
+    // Website you wish to allow to connect
+    res.setHeader('Access-Control-Allow-Origin', '*');
+
+    // Request methods you wish to allow
+    res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
+
+    // Request headers you wish to allow
+	res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept, *");
+
+    // Set to true if you need the website to include cookies in the requests sent
+    // to the API (e.g. in case you use sessions)
+    res.setHeader('Access-Control-Allow-Credentials', false);
+
+    // Pass to next layer of middleware
+    next();
+});
+
 app.get('/login', function (req, res) {
      try {
-		 
 		  var auth_token = req.headers.authorization.split(" ")[1];
-			console.log(auth_token);
+			//console.log(auth_token);
 			console.log(req.headers);
 			var buffer = new Buffer(auth_token, 'base64')
 			var credentials = buffer.toString().split(":");
@@ -49,7 +72,7 @@ app.get('/login', function (req, res) {
             }
          });
     } catch (e) {
-        fireResponse(res, 500, "false");
+        fireResponse(res, 500, "false " + e.message);
     }
 });
 
@@ -99,7 +122,7 @@ app.get('/get', function (req, res) {
 		switch (req.query.table.toLowerCase()) {
 			
             case "kunde":
-				 var query = "select kund.K_ID, kund.Name, kund.Adresse, kund.UID from Mandatar m  join Verkauf k on k.MandatarID = m.M_ID join Kunde kund on kund.K_ID = k.KundenID  where M_ID = \'"+ creds[0] +"\' AND Passwort = \'" + creds[1] + "\'";
+				 var query = "select k.K_ID, k.Name, k.Adresse, k.UID from Mandatar m join is_kunde isk on m.M_ID = isk.M_ID  join Kunde k on k.K_ID = isk.K_ID where m.M_ID = \'"+ creds[0] +"\' AND m.Passwort = \'" + creds[1] + "\'";
 				 console.log(query);
 	             con.query(query, function (err, result, fields) {
 				
@@ -114,7 +137,7 @@ app.get('/get', function (req, res) {
                 break;
 			
 			case "verkauf":
-				var query = "select k.S_ID, DATE_FORMAT(k.Verkaufsdatum,'%d/%m/%Y') as Datum, k.KundenID, kund.Name as KundenName, l.I_ID, l.ItemMenge, l.AktuellerPreis, l.ItemMenge*l.AktuellerPreis AS KumulierterPreis from Mandatar m  join Verkauf k on k.MandatarID = m.M_ID join Kunde kund on kund.K_ID = k.KundenID join Lagerentnahme l on k.S_ID = l.S_ID  where M_ID = \'"+ creds[0] +"\' AND Passwort = \'" + creds[1] + "\'";
+				var query = "select k.S_ID, DATE_FORMAT(k.Verkaufsdatum,'%d/%m/%Y') as Datum, k.KundenID, kund.Name as KundenName, l.I_ID, l.ItemMenge, l.AktuellerPreis, l.ItemMenge*l.AktuellerPreis AS KumulierterPreis from Mandatar m  join Verkauf k on k.MandatarID = m.M_ID join Kunde kund on kund.K_ID = k.KundenID join Lagerentnahme l on k.S_ID = l.S_ID  where m.M_ID = \'"+ creds[0] +"\' AND m.Passwort = \'" + creds[1] + "\'";
 			
 				 console.log(query);
 	             con.query(query, function (err, result, fields) {
@@ -223,14 +246,22 @@ try{
 							console.log(newid);
 							
 							
-								con.query("insert into Kunde(K_ID, Name, Adresse, UID) values(\'"  + newid + "\', \'" + req.body.Name + "\', \'" + req.body.Adresse + "\', \'" + req.body.UID + "\')", function (err1, result1, fields) {
+								con.query("insert into Kunde(K_ID, Name, Adresse, UID, M_ID) values(\'"  + newid + "\', \'" + req.body.Name + "\', \'" + req.body.Adresse + "\', \'" + req.body.UID + "\' , \'" + creds[0] + "\')", function (err1, result1, fields) {
 				
 								if (err1) {
 									fireResponse(res, 500, "error (DB)");
 								}
 								else { 
+									con.query("insert into is_kunde(K_ID, M_ID) values(\'"  + newid + "\', \'" + creds[0] + "\')", function (err2, result2, fields) {
+				
+										if (err2) {
+											fireResponse(res, 500, "error (DB)");
+										}
+										else { 
+											fireResponse(res,200, result2);
+										}
+										});		
 									
-									fireResponse(res,200, result1);
 								}
 								});		
                         }
@@ -679,7 +710,7 @@ function createJSONGetTableResponse(sqlresult){
 }
 
 function fireResponse(res,httpcode, message) {
-    res.status(httpcode);
+	res.status(httpcode);
     res.send(message);
 }
 
