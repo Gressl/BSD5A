@@ -41,7 +41,7 @@ namespace Lagerverwaltung
 
         private void button_Click_1(object sender, RoutedEventArgs e)
         {
-            k = new Kundenverwaltung(username, hashedpassword);
+                k = new Kundenverwaltung(username, hashedpassword);
             k.Show();
         }
 

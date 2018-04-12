@@ -37,7 +37,6 @@ namespace Lagerverwaltung
             password = CalculateSHA256Hash(txt_pass.Password);
 
             Console.WriteLine(password);
-            // MessageBox.Show(username + " " + password);
             string s = req.getLoginCall("http://10.0.0.101:1234/login", username, password);
 
             if (s == "true")

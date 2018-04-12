@@ -38,5 +38,10 @@ namespace Lagerverwaltung
             MessageBox.Show("Done");
             this.Close();
         }
+
+        private void checkBox_Checked(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
