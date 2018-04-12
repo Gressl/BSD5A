@@ -470,15 +470,17 @@ try{
 			 try{
 			 
 			 if(req.body.table && req.body.K_ID && req.body.update_data){
-				  con.query("select kund.K_ID from Mandatar m  join Verkauf k on k.MandatarID = m.M_ID join Kunde kund on kund.K_ID = k.KundenID  where M_ID = \'"+ creds[0] +"\' AND Passwort = \'" + creds[1] + "\'", function (err, result, fields) {
-				
+				  con.query("select ik.K_ID from is_kunde ik join Mandatar m on m.M_ID = ik.M_ID where ik.M_ID = \'" + creds[0] +"\'", function (err, result, fields) {
+				//select ik.K_ID from is_kunde ik join Mandatar m on m.M_ID = ik.M_ID where ik.M_ID = \'"+ creds[0] +"\';
                         if (err) {
-                            fireResponse(res, 500, "error (DB)");
+                            fireResponse(res, 500, "error (DB): " + err);
                         }
                         else { 
 							var is_mycustomer = false;
 							result.forEach(function(object) {
+								console.log(object.K_ID + "-------" + req.body.K_ID);
 							 if(object.K_ID == req.body.K_ID){
+								 console.log(object.K_ID + "-------" + req.body.K_ID);
 								 is_mycustomer = true;
 							 }
 							});
