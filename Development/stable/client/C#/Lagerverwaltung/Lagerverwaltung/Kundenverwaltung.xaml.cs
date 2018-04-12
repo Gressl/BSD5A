@@ -77,5 +77,10 @@ namespace Lagerverwaltung
         {
 
         }
+
+        private void button_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }

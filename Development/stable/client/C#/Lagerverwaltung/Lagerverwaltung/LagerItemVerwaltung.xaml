@@ -8,7 +8,7 @@
         Title="LagerItemVerwaltung" Height="399.248" Width="500.752">
     <Grid Margin="0,0,-8,-7">
         <ListBox x:Name="listbox_LagerItem" HorizontalAlignment="Left" Height="337" Margin="10,10,0,-78" VerticalAlignment="Top" Width="251" SelectionChanged="listbox_LagerItem_SelectionChanged" />
-        <Button x:Name="btn_add" Content="Add" HorizontalAlignment="Left" Margin="283,268,0,0" VerticalAlignment="Top" Width="112" Height="79" Click="btn_add_Click"/>
+        <Button x:Name="btn_add" Content="Add" HorizontalAlignment="Left" Margin="278,172,0,0" VerticalAlignment="Top" Width="104" Height="53" Click="btn_add_Click"/>
         <Label x:Name="label" Content="ID" HorizontalAlignment="Left" Margin="266,10,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label1" Content="Name" HorizontalAlignment="Left" Margin="266,36,0,0" VerticalAlignment="Top"/>
         <Label x:Name="label2" Content="Preis" HorizontalAlignment="Left" Margin="266,62,0,0" VerticalAlignment="Top"/>
@@ -17,6 +17,16 @@
         <TextBox x:Name="txt_Name" HorizontalAlignment="Left" Height="23" Margin="337,36,-42,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txt_Preis" HorizontalAlignment="Left" Height="23" Margin="337,62,-42,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.508,0.478"/>
         <TextBox x:Name="txt_Menge" HorizontalAlignment="Left" Height="23" Margin="337,88,-42,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Text="'"/>
+        <Button x:Name="button" Content="Update" HorizontalAlignment="Left" Margin="380,225,0,0" VerticalAlignment="Top" Width="102" Height="52" RenderTransformOrigin="0.5,0.5" Click="button_Click">
+            <Button.RenderTransform>
+                <TransformGroup>
+                    <ScaleTransform/>
+                    <SkewTransform/>
+                    <RotateTransform Angle="-0.03"/>
+                    <TranslateTransform/>
+                </TransformGroup>
+            </Button.RenderTransform>
+        </Button>
 
     </Grid>
 </Window>

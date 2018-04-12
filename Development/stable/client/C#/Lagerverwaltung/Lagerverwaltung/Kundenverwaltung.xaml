@@ -16,6 +16,7 @@
         <TextBox x:Name="txt_Name" HorizontalAlignment="Left" Height="23" Margin="337,36,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <TextBox x:Name="txt_Adresse" HorizontalAlignment="Left" Height="23" Margin="337,62,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" RenderTransformOrigin="0.508,0.478"/>
         <TextBox x:Name="txt_UID" HorizontalAlignment="Left" Height="23" Margin="337,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
-        <Button x:Name="btnAdd" Content="ADD" HorizontalAlignment="Left" Margin="334,176,0,0" VerticalAlignment="Top" Width="123" Height="57" Click="btnAdd_Click"/>
+        <Button x:Name="btnAdd" Content="ADD" HorizontalAlignment="Left" Margin="281,158,0,0" VerticalAlignment="Top" Width="123" Height="57" Click="btnAdd_Click"/>
+        <Button x:Name="button" Content="Update" HorizontalAlignment="Left" Margin="402,215,0,0" VerticalAlignment="Top" Width="123" Height="56" Click="button_Click"/>
     </Grid>
 </Window>

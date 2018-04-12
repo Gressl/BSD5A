@@ -11,7 +11,7 @@
         <Label x:Name="lbl_user" Content="xx" HorizontalAlignment="Left" Margin="194,18,0,0" VerticalAlignment="Top" FontSize="18"/>
         <GroupBox x:Name="groupBox" Header="Status" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="64" Width="293"/>
         <Button x:Name="button" Content="Kundenverwaltung" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Width="124" Height="28" Click="button_Click_1"/>
-        <Button x:Name="button1" Content="Lagerverwaltung" HorizontalAlignment="Left" Margin="10,113,0,0" VerticalAlignment="Top" Width="124" Height="28" Click="button1_Click"/>
-        <Button x:Name="button2" Content="Rechnungsverwaltung" HorizontalAlignment="Left" Margin="10,146,0,0" VerticalAlignment="Top" Width="124" Height="28" Click="button2_Click"/>
+        <Button x:Name="button1" Content="Lagerverwaltung" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" Width="124" Height="28" Click="button1_Click"/>
+        <Button x:Name="button2" Content="Rechnungsverwaltung" HorizontalAlignment="Left" Margin="10,198,0,0" VerticalAlignment="Top" Width="124" Height="28" Click="button2_Click"/>
     </Grid>
 </Window>
