@@ -521,19 +521,50 @@ try{
 			 }
 			 
 			break;
-			/*
-			case "lagerentnahme":
-			//I_ID, S_ID, ItemMenge, AktuellerPreis
+			
+			case "mandatar":
+			//ID, Firmenname, Adresse
 			try{
 				
-				if(req.body.I_ID && req.body.S_ID && req.body.ItemMenge && req.body.AktuellerPreis){
-				//var query = "insert into Lagerentnahme(I_ID, S_ID, ItemMenge, AktuellerPreis) values(\'"  + req.body.I_ID + "\', \'" + req.body.S_ID + "\', \'" + req.body.ItemMenge + "\', \'" + req.body.AktuellerPreis + "\')";
-				
-			 
-				}
-				else{
-					fireResponse(res, 500, "params are missing or wrong");
-				}
+				if(req.body.table && req.body.update_data){
+
+								console.log(creds[0]);
+
+									var querybuilder = "Update Mandatar SET ";
+									for(var i in req.body.update_data) {
+										if(i != "M_ID" || i != "Username" || u != "Passwort") {
+											querybuilder += i + "=" + "\'"+ req.body.update_data[i] + "\'" + ",";
+										}
+									 
+									}
+									
+									var query = querybuilder.substr(0, querybuilder.length-1);
+									query += " WHERE M_ID = \'"+ creds[0] +"\'";
+									console.log(query);
+									
+									 con.query(query, function (err1, result1, fields1) {
+
+										if (err1) {
+											fireResponse(res, 500, err1);
+										}
+										else { 
+											 fireResponse(res, 200, result1);
+											 }
+											});
+											
+											
+								}
+							
+								else{
+									  fireResponse(res, 404, "Costumer not in your list");
+								}
+							
+                  
+
+
+
+
+			
 			}
 			catch(e){
 				fireResponse(res, 500, "something went wrong!");
@@ -541,58 +572,6 @@ try{
 			
 			break;
 			
-			case "lageritem":
-			// I_ID, Name, Preis, Menge
-			//select I_ID from Lageritem order by I_ID desc limit 1
-			try{
-				
-				if(req.body.Name && req.body.Preis && req.body.Menge){
-					
-					
-				}
-				else{
-					fireResponse(res, 500, "params are missing or wrong");
-				}
-			}
-			catch(e){
-				fireResponse(res, 500, "something went wrong!");
-			}
-			
-			break;
-			
-			case "verkauf":
-			//S_ID, Verkaufsdatum, KundenID, MandatarID
-			try{
-				 if(req.body.Verkaufsdatum && req.body.KundenID && req.body.MandatarID){
-						
-			 } 
-			 else{
-				  fireResponse(res, 400, "some params are missing!");
-			 }
-			}
-			catch(e){
-				fireResponse(res, 500, "something went wrong!");
-			}
-			
-			break;
-			
-			case "rechnung":
-			//Rechnungsnummer, schonbezahlt, S_ID
-			try{
-				 if(req.body.schonbezahlt && req.body.S_ID ){
-				  	
-			 } 
-			 else{
-				  fireResponse(res, 400, "some params are missing!");
-			 }
-			}
-			catch(e){
-				fireResponse(res, 500, "something went wrong!");
-			}
-			
-			break;
-			
-			*/
 			
 			default:
 				fireResponse(res, 400, "error");
