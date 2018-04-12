@@ -532,8 +532,8 @@ try{
 
 									var querybuilder = "Update Mandatar SET ";
 									for(var i in req.body.update_data) {
-										if(i != "M_ID" || i != "Username" || u != "Passwort") {
-											querybuilder += i + "=" + "\'"+ req.body.update_data[i] + "\'" + ",";
+										if(i != "M_ID" && i != "Username" && i != "Passwort") {
+												  querybuilder += i + "=" + "\'"+ req.body.update_data[i] + "\'" + ",";
 										}
 									 
 									}
@@ -586,6 +586,34 @@ try{
 }
 });
 
+app.get('/statistics', function (req, res) {
+
+	switch (req.query.data.toLowerCase()) {
+
+		case "customersales":
+
+		//var query = "select k.K_ID, k.Name, k.Adresse, k.UID from Mandatar m join is_kunde isk on m.M_ID = isk.M_ID  join Kunde k on k.K_ID = isk.K_ID where m.M_ID = \'"+ creds[0] +"\' AND m.Passwort = \'" + creds[1] + "\'";
+		var query = "select k.Name, Count(v.S_ID) AS 'Verkaeufe' from Verkauf v join Kunde k on k.K_ID = v.KundenID where v.MandatarID = \'"+ creds[0] +"\' group by v.KundenID;";
+		console.log(query);
+		con.query(query, function (err, result, fields) {
+	   
+			   if (err) {
+				   fireResponse(res, 500, "error");
+			   }
+			   else {
+				   fireResponse(res,200, result);
+			   }
+		   });	
+			break;
+	
+
+
+		default:
+			break;
+	}
+	req.query.data.toLowerCase()
+
+});
 
 
 app.get('/', function (req, res) {
