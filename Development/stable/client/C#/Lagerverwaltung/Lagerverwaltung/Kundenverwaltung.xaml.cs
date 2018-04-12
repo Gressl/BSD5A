@@ -41,7 +41,8 @@ namespace Lagerverwaltung
                 for(int i=0; i < myar.Count;i++)
                  {
                     lbl_Kunde.Items.Add(myar[i]);
-                 }
+                    
+                }
           
             }
             catch (Exception)
@@ -60,6 +61,7 @@ namespace Lagerverwaltung
                 txt_Name.Text = k.Name;
                 txt_Adresse.Text = k.Adresse;
                 txt_UID.Text = k.UID;
+               
             }
             catch (Exception ex)
             {

@@ -24,6 +24,7 @@ namespace Lagerverwaltung
         Kundenverwaltung k;
         Rechnungsverwaltung r;
         LagerItemVerwaltung l;
+        
 
         public Verwaltung(string user, string password)
         {
@@ -32,6 +33,7 @@ namespace Lagerverwaltung
             hashedpassword = password;
 
             lbl_user.Content = username;
+       
         }
 
         private void button_Click(object sender, RoutedEventArgs e)
@@ -57,5 +59,7 @@ namespace Lagerverwaltung
             r = new Rechnungsverwaltung(username, hashedpassword);
             r.Show();
         }
-    }
+
+
+        }
 }
