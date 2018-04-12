@@ -24,8 +24,22 @@ namespace Lagerverwaltung
             
         }
 
+        public string JSONForUpdate()
+        {
+            string ret = "{";
+            string update_data = "";
 
+            update_data += "\"Name\":\"" + Name + "\",";
+            update_data += "\"Adresse\":\"" + Adresse + "\",";
+            update_data += "\"UID\":\"" + UID + "\"";
 
+            ret += "\"table\":\"" + table +"\",";
+            ret += "\"K_ID\":\"" + K_ID + "\",";
+            ret += "\"update_data\":{"+update_data+"}";
+            ret += "}";
+            
+            return ret;
+        }
         public override string ToString()
         {
             return K_ID + " " + Name;

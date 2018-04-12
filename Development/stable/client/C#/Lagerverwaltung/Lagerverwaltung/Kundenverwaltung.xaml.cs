@@ -79,7 +79,6 @@ namespace Lagerverwaltung
         {
             Kunde k = new Kunde(Int32.Parse(txt_ID.Text), txt_Name.Text, txt_Adresse.Text, txt_UID.Text);
             request.updateKunden(k);
-            MessageBox.Show("Done");
             this.Close();
         }
     }

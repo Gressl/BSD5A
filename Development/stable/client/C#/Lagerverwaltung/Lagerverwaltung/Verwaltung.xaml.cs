@@ -60,6 +60,10 @@ namespace Lagerverwaltung
             r.Show();
         }
 
-
+        private void btnDatachange_Click(object sender, RoutedEventArgs e)
+        {
+            MandatChange md = new MandatChange();
+            md.Show();
         }
+    }
 }

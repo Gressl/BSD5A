@@ -19,7 +19,7 @@
         <TextBox x:Name="txt_UID" HorizontalAlignment="Left" Height="23" Margin="337,88,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120"/>
         <Button x:Name="btnAdd" Content="ADD" HorizontalAlignment="Left" Margin="476,12,0,0" VerticalAlignment="Top" Width="108" Height="47" Click="btnAdd_Click"/>
         <Button x:Name="button" Content="Update" HorizontalAlignment="Left" Margin="476,72,0,0" VerticalAlignment="Top" Width="108" Height="42" Click="button_Click"/>
-        <m:Map CredentialsProvider="At7AXqvsIUjTypnxgKjqf-8Aw1IIHaalKs9yvnQ4yDTqru3rs8WGWH8gkzyEb74q" Margin="266,140,-5,0">
+        <m:Map CredentialsProvider="At7AXqvsIUjTypnxgKjqf-8Aw1IIHaalKs9yvnQ4yDTqru3rs8WGWH8gkzyEb74q" Margin="266,140,0,0">
             <m:Pushpin Name="pushbin1" Location="00.620574,-122.34942" Margin="456,119,-139,57"/>
             <m:Pushpin Location="00.620574,-122.34942" Margin="173,192,13,-16" Width="Auto"/>
         </m:Map>

@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Text;
 using System.Threading.Tasks;
+using System.Windows;
 
 namespace Lagerverwaltung
 {
@@ -53,6 +54,8 @@ namespace Lagerverwaltung
 
             return responseString;
         }
+   
+
 
         public bool addKunden(Kunde k)
         {
@@ -66,7 +69,7 @@ namespace Lagerverwaltung
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
                 string json = JsonConvert.SerializeObject(k);
-
+                MessageBox.Show(json);
                 streamWriter.Write(json);
             }
             var httpResponse = (HttpWebResponse)request.GetResponse();
@@ -87,8 +90,31 @@ namespace Lagerverwaltung
 
             using (var streamWriter = new StreamWriter(request.GetRequestStream()))
             {
-                string json = JsonConvert.SerializeObject(k);
+                string json = k.JSONForUpdate();
+               
+                streamWriter.Write(json);
+            }
+            var httpResponse = (HttpWebResponse)request.GetResponse();
+            using (var streamReader = new StreamReader(httpResponse.GetResponseStream()))
+            {
+                var responseText = streamReader.ReadToEnd();
+                return true;
+            }
+        }
 
+        public bool updateMand(Mandatar m)
+        {
+
+            request = (HttpWebRequest)WebRequest.Create("http://10.0.0.101:1234/update");
+            string svcCredentials = Convert.ToBase64String(ASCIIEncoding.ASCII.GetBytes("AT01" + ":" + "addb0f5e7826c857d7376d1bd9bc33c0c544790a2eac96144a8af22b1298c940"));
+            request.Headers.Add("Authorization", "Basic " + svcCredentials);
+            request.ContentType = "application/json";
+            request.Method = "PATCH";
+
+            using (var streamWriter = new StreamWriter(request.GetRequestStream()))
+            {
+                string json = m.JSONForUpdate();
+                MessageBox.Show(json);
                 streamWriter.Write(json);
             }
             var httpResponse = (HttpWebResponse)request.GetResponse();

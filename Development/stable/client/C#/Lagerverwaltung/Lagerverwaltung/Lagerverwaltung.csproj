@@ -103,6 +103,10 @@
     <Compile Include="LagerItemVerwaltung.xaml.cs">
       <DependentUpon>LagerItemVerwaltung.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Mandatar.cs" />
+    <Compile Include="MandatChange.xaml.cs">
+      <DependentUpon>MandatChange.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Rechnung.cs" />
     <Compile Include="Rechnungsverwaltung.xaml.cs">
       <DependentUpon>Rechnungsverwaltung.xaml</DependentUpon>
@@ -138,6 +142,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MandatChange.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Rechnungsverwaltung.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

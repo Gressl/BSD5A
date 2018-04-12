@@ -152,3 +152,5 @@ C:\Users\Prey\Documents\GitHub\Lagerverwaltung-Supermarkt\Development\stable\cli
 C:\Users\Prey\Documents\GitHub\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\bin\Debug\zh-Hans\Xceed.Wpf.AvalonDock.resources.dll
 C:\Users\Prey\Documents\GitHub\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\bin\Debug\Microsoft.Maps.MapControl.WPF.dll
 C:\Users\Prey\Documents\GitHub\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\bin\Debug\Microsoft.Maps.MapControl.WPF.xml
+C:\Users\Prey\Documents\GitHub\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\obj\Debug\MandatChange.g.cs
+C:\Users\Prey\Documents\GitHub\Lagerverwaltung-Supermarkt\Development\stable\client\C#\Lagerverwaltung\Lagerverwaltung\obj\Debug\MandatChange.baml

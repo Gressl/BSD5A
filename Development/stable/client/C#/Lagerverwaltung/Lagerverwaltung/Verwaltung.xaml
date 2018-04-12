@@ -11,8 +11,8 @@
         <Label x:Name="label" Content="Logged in as: " HorizontalAlignment="Left" Margin="28,24,0,0" VerticalAlignment="Top"/>
         <Label x:Name="lbl_user" Content="xx" HorizontalAlignment="Left" Margin="194,18,0,0" VerticalAlignment="Top" FontSize="18"/>
         <GroupBox x:Name="groupBox" Header="Status" HorizontalAlignment="Left" Margin="10,0,0,0" VerticalAlignment="Top" Height="64" Width="293"/>
-        <Button x:Name="button" Content="Kundenverwaltung" HorizontalAlignment="Left" Margin="10,80,0,0" VerticalAlignment="Top" Width="124" Height="28" Click="button_Click_1"/>
-        <Button x:Name="button1" Content="Lagerverwaltung" HorizontalAlignment="Left" Margin="10,136,0,0" VerticalAlignment="Top" Width="124" Height="28" Click="button1_Click"/>
-        <Button x:Name="button2" Content="Rechnungsverwaltung" HorizontalAlignment="Left" Margin="10,198,0,0" VerticalAlignment="Top" Width="124" Height="28" Click="button2_Click"/>
+        <Button x:Name="button" Content="Kundenverwaltung" HorizontalAlignment="Left" Margin="10,108,0,0" VerticalAlignment="Top" Width="141" Height="139" Click="button_Click_1"/>
+        <Button x:Name="button1" Content="Lagerverwaltung" HorizontalAlignment="Left" Margin="174,108,0,0" VerticalAlignment="Top" Width="141" Height="139" Click="button1_Click"/>
+        <Button x:Name="btnDatachange" Content="Meine Daten ändern" HorizontalAlignment="Left" Margin="89,69,0,0" VerticalAlignment="Top" Width="145" Click="btnDatachange_Click"/>
     </Grid>
 </Window>
